@@ -1,0 +1,29 @@
+name: Deploy to product server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Execute SSH command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER_NAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /var/www/html/BTL_blog_web
+            git checkout -f main && git clean -f -d && git pull origin main
+            composer install
+            php artisan migrate --force --no-interaction
+            php artisan route:clear
+            php artisan view:clear
+            php artisan view:cache
+            npm run build
