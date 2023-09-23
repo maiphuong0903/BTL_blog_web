@@ -5,7 +5,7 @@
 
 @section('content')
 <div>
-    Home
-    @include('client.components.home.banner')
+   
+    @include('client.components.home.banner')  
 </div>
 @stop
