@@ -4,8 +4,8 @@
 
 
 @section('content')
-<div>
-   
+<div> 
     @include('client.components.home.banner')  
+    
 </div>
 @stop
