@@ -14,7 +14,7 @@
             <ul class="leading-9 md:leading-7 font-extralight">
                 <li>Địa chỉ : số 3 cầu giấy hà nội</li>
                 <li>SĐT : 0987321456</li>
-                <li><a href="#">Điền form để gửi email</a></li>
+                <li><a href="{{ route('client.contact') }}">Điền form để gửi email</a></li>
             </ul>
         </div>
         <div class="mb-3">

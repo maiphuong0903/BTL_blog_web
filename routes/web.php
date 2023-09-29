@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('client.home');
+Route::get('/post/{post}', [PostController::class, 'getPostDetail'])->name('client.post.detail');
+
+Route::get('/contact', function () {
+    return view('client.pages.contact');
+})->name('client.contact');
+
+Route::get('/posts', function () {
+    return view('client.pages.posts');
+})->name('client.posts');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
