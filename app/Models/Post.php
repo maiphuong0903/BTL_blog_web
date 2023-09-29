@@ -11,15 +11,21 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'tutorial_id',
         'title',
         'content',
         'created_by'
     ];
 
+    protected $with = ['author'];
+
     public function tutorial(): BelongsTo
     {
         return $this->belongsTo(Tutorial::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

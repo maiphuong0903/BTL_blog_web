@@ -15,13 +15,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <!-- Scripts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
     @include('client.partial.header')
 
-    @yield('content')
+    <main class="bg-[#F9FAFB]">
+        @yield('content')
+    </main>
 
     @include('client.partial.footer')
 </body>

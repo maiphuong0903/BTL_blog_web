@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tutorial;
-use Illuminate\Http\Request;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $data = Tutorial::with("posts")->get();
-        return view('client.pages.home', compact('data'));
+        $posts = Post::take(10)->get();
+        return view('client.pages.home', compact('posts'));
     }
 }
