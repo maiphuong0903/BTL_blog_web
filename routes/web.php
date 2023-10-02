@@ -27,9 +27,30 @@ Route::get('/posts', function () {
     return view('client.pages.posts');
 })->name('client.posts');
 
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('/admin/home', function () {
+    return view('admin.pages.home');
+})->name('admin.home');
+
+Route::get('/admin/qlbaiviet', function () {
+    return view('admin.pages.quanlybaiviet.listPosts');
+})->name('admin.qlbaiviet');
+
+
+Route::get('/admin/qltaikhoan', function () {
+    return view('admin.pages.quanlytaikhoan.listUsers');
+})->name('admin.qltaikhoan');
+
+Route::get('/admin/qldanhmuc', function () {
+    return view('admin.pages.quanlydanhmuc.listTutorials');
+})->name('admin.qldanhmuc');
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('admin.pages.home');
+})->middleware(['auth', 'verified'])->name('dashboard/home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
