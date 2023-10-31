@@ -4,7 +4,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TutorialController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,14 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('client.home');
 Route::get('/post/{post}', [PostController::class, 'getPostDetail'])->name('client.post.detail');
-
+Route::get('/posts', [PostController::class, 'getPosts'])->name('client.posts');
 Route::get('/contact', function () {
     return view('client.pages.contact');
 })->name('client.contact');
 
-Route::get('/posts', function () {
-    return view('client.pages.posts');
-})->name('client.posts');
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -35,18 +33,24 @@ Route::get('/admin/home', function () {
     return view('admin.pages.home');
 })->name('admin.home');
 
+//Bài Viết - Posts
 Route::get('/admin/qlbaiviet', function () {
     return view('admin.pages.quanlybaiviet.listPosts');
 })->name('admin.qlbaiviet');
 
+// Tài Khoản - Users
+Route::get('/admin/qltaikhoan', [UserController::class, 'index'])->name('admin.qltaikhoan');
+Route::get('/users/create', [UserController::class, 'create'])->name('themtaikhoan');
+Route::post('/users', [UserController::class, 'store']);
 
-Route::get('/admin/qltaikhoan', function () {
-    return view('admin.pages.quanlytaikhoan.listUsers');
-})->name('admin.qltaikhoan');
-
-Route::get('/admin/qldanhmuc', function () {
-    return view('admin.pages.quanlydanhmuc.listTutorials');
-})->name('admin.qldanhmuc');
+// Danh Mục - Tutorials
+Route::get('/admin/qldanhmuc', [TutorialController::class, 'index'])->name('admin.qldanhmuc');
+Route::get('/danhmuc/detail/{id}', [TutorialController::class, 'show'])->name('danhmuc.detail');
+Route::get('/themdanhmuc', [TutorialController::class, 'create'])->name('admin.themdanhmuc');
+Route::post('/add_danhmuc', [TutorialController::class, 'store']);
+Route::get('/suadanhmuc/{id}', [TutorialController::class, 'edit'])->name('admin.suadanhmuc');
+Route::put('/edit_danhmuc/{id}', [TutorialController::class, 'update']);
+Route::delete('/delete_danhmuc/{id}', [TutorialController::class, 'destroy']);
 
 Route::get('/dashboard', function () {
     return view('admin.pages.home');
