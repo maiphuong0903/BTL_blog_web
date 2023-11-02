@@ -55,12 +55,11 @@ Route::delete('/delete_danhmuc/{id}', [TutorialController::class, 'destroy']);
 
 // Tags
 Route::get('/admin/qltag', [TagsController::class, 'index'])->name('admin.qlTag');
-// Route::get('/danhmuc/detail/{id}', [TutorialController::class, 'show'])->name('danhmuc.detail');
-// Route::get('/themdanhmuc', [TutorialController::class, 'create'])->name('admin.themdanhmuc');
-// Route::post('/add_danhmuc', [TutorialController::class, 'store']);
-// Route::get('/suadanhmuc/{id}', [TutorialController::class, 'edit'])->name('admin.suadanhmuc');
-// Route::put('/edit_danhmuc/{id}', [TutorialController::class, 'update']);
-// Route::delete('/delete_danhmuc/{id}', [TutorialController::class, 'destroy']);
+Route::get('/themtag', [TagsController::class, 'create'])->name('admin.themtag');
+Route::post('/add_tag', [TagsController::class, 'store']);
+Route::get('/suaTag/{id}', [TagsController::class, 'edit'])->name('admin.suaTag');
+Route::put('/edit_tag/{id}', [TagsController::class, 'update']);
+Route::delete('/delete_tag/{id}', [TagsController::class, 'destroy']);
 
 Route::get('/dashboard', function () {
     return view('admin.pages.home');
