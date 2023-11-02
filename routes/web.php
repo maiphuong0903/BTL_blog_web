@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TutorialController;
+use App\Http\Controllers\TagsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,6 +52,15 @@ Route::post('/add_danhmuc', [TutorialController::class, 'store']);
 Route::get('/suadanhmuc/{id}', [TutorialController::class, 'edit'])->name('admin.suadanhmuc');
 Route::put('/edit_danhmuc/{id}', [TutorialController::class, 'update']);
 Route::delete('/delete_danhmuc/{id}', [TutorialController::class, 'destroy']);
+
+// Tags
+Route::get('/admin/qltag', [TagsController::class, 'index'])->name('admin.qlTag');
+// Route::get('/danhmuc/detail/{id}', [TutorialController::class, 'show'])->name('danhmuc.detail');
+// Route::get('/themdanhmuc', [TutorialController::class, 'create'])->name('admin.themdanhmuc');
+// Route::post('/add_danhmuc', [TutorialController::class, 'store']);
+// Route::get('/suadanhmuc/{id}', [TutorialController::class, 'edit'])->name('admin.suadanhmuc');
+// Route::put('/edit_danhmuc/{id}', [TutorialController::class, 'update']);
+// Route::delete('/delete_danhmuc/{id}', [TutorialController::class, 'destroy']);
 
 Route::get('/dashboard', function () {
     return view('admin.pages.home');

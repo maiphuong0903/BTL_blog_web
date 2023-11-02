@@ -12,17 +12,13 @@
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Tên danh mục
             </label>
-            <input class="w-full rounded-md border border-gray-300" type="text" name="name" placeholder="Nhập tên danh mục...">
-      </div>
-      @if ($errors->any())
-        <div class="px-3 mt-2">
-            @foreach ($errors->all() as $error)
-                <p class="text-red-500">
-                    {{$error}}
-                </p>
-            @endforeach
-        </div>
-     @endif
+            <input class="w-full rounded-md border border-gray-300" type="text" name="name" placeholder="Nhập tên danh mục..." value="{{ old('name') }}">
+          </div>
+      <p @error('name') class="error" @enderror>
+        @error('name')
+            <span class="px-3 text-red-500">{{ $message }}</span>
+        @enderror
+      </p> 
       <div class="w-full px-3 my-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Mô tả

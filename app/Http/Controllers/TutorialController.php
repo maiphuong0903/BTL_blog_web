@@ -8,7 +8,7 @@ use App\Models\Tutorial;
 class TutorialController extends Controller
 {
     public function index(){
-        $tutorials = Tutorial::all();
+        $tutorials = Tutorial::paginate(3);
         return view('admin.pages.quanlydanhmuc.listTutorials',[
             'tutorials' => $tutorials
         ]);
@@ -25,8 +25,12 @@ class TutorialController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'name' => 'required',
-        ]);
+            'name' => 'required|unique:tutorials,name',
+        ], [
+            'name.required' => 'Không được để trống',
+            'name.unique' => 'Tên đã tồn tại trong cơ sở dữ liệu',
+        ]);        
+   
         $tutorial = Tutorial::create([
             'name' => $request->input('name'),
             'description' => $request->input('description')
@@ -34,6 +38,7 @@ class TutorialController extends Controller
         $tutorial->save();
         return redirect('/admin/qldanhmuc');
     }
+   
 
     public function edit($id){
         $tutorial = Tutorial::find($id);
@@ -55,6 +60,6 @@ class TutorialController extends Controller
     public function destroy($id){
         $tutorial = Tutorial::find($id); 
         $tutorial->delete();
-        return redirect('/admin/qldanhmuc');
+        return back();
     }
 }
