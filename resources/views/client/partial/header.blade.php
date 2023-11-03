@@ -1,11 +1,11 @@
 <header class="sticky top-0">
-    <div class="bg-[#fff] xl:px-24 py-3 flex lg:grid 2xl:grid-cols-7 lg:grid-cols-9 px-4 sm:px-6">
-        <h1 class="lg:text-[25px] font-semibold text-[35px]">Blog</h1>
+    <div class="bg-[#fff] xl:px-24 py-4 flex lg:grid 2xl:grid-cols-7 lg:grid-cols-9 px-4 sm:px-6">
+        <h1 class="lg:text-[30px] font-semibold text-[35px]">Blog</h1>
 
         {{-- nav --}}
-        <div class="2xl:col-span-5 col-span-7 flex gap-8 items-center justify-center">
+        <div class="2xl:col-span-5 col-span-7 flex gap-8 items-center justify-center 2xl:text-xl">
             <nav class="mr-20 xl:mr-10 lg:mr-3">
-                <ul class="lg:flex 2xl:gap-10 xl:ml-8 lg:gap-6 hidden">
+                <ul class="lg:flex 2xl:gap-14 xl:ml-8 lg:gap-6 hidden">
                     <li><a href="{{ route('client.home') }}">Home</a></li>
                     <li><a href="{{ route('client.posts') }}">Bài Viết</a></li>
                     <li>
@@ -13,11 +13,11 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                         </svg></button>
                         <!-- Dropdown menu -->
-                        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[120px] xl:w-[140px] 2xl:w-[160px]">
+                        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[120px] xl:w-[140px] 2xl:w-[200px]">
                             <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownDefaultButton">
                                 @foreach ($tutorials as $tutorial)
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">{{ $tutorial->name }}</a>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-lg font-light">{{ $tutorial->name }}</a>
                                   </li>
                                 @endforeach
                             </ul>
@@ -32,12 +32,12 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input type="search" id="default-search" class="lg:block w-[300px] xl:w-[400px] hidden p-2 pl-10 text-sm text-gray-900 border border-gray-200 rounded-2xl focus:ring-gray-300 focus:border-gray-300" placeholder="Nhập tên ..." required>
+                <input type="search" id="default-search" class="lg:block w-[300px] xl:w-[400px] hidden p-[10px] pl-10 text-[17px] text-gray-900 border border-gray-200 rounded-2xl focus:ring-gray-300 focus:border-gray-300" placeholder="Nhập tên ..." required>
             </div>
         </div>
 
         {{-- button login --}}
-        <div class="lg:flex lg:flex-1 lg:justify-end hidden">
+        <div class="lg:flex lg:flex-1 lg:justify-end hidden text-xl">
             <a href="{{ route('login') }}" class="bg-[#292c45] text-white px-4 py-2 rounded-lg">Log in </a>
         </div> 
         

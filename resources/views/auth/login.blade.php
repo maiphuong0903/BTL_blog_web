@@ -4,7 +4,7 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
+        <h1 href="/" class="text-2xl text-center mt-4 mb-2"> Login </h1>
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -25,23 +25,26 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
+        <div class="flex mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
                 <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
             </label>
+            <div class="flex flex-1 justify-end items-center">
+                @if (Route::has('password.request'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
+            </div>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
+        <div class="mt-6">
+            <x-primary-button class="w-full flex flex-1 items-center justify-center py-3 rounded-xl">
                 {{ __('Log in') }}
             </x-primary-button>
+        </div>
+        <div class="mt-3 mb-4 flex flex-1 justify-center text-[15px] text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <a href="{{ route('register') }}">Don't have an account? Register</a>
         </div>
     </form>
 </x-guest-layout>

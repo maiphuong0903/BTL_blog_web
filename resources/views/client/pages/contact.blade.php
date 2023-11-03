@@ -4,7 +4,7 @@
 
 
 @section('content')
-<div class="xl:px-28 md:px-9 py-10">
+<div class="xl:px-28 md:px-9 py-12">
     <h1 class="text-2xl sm:text-3xl font-bold text-gray-600 text-center pb-1">HAVE SOME QUESTIONS?</h1>
     <div class="flex gap-10 justify-center items-center font-thin text-gray-500 text-[15px]">
         <div class="flex gap-1 items-center justify-center">

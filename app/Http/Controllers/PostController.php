@@ -13,4 +13,9 @@ class PostController extends Controller
         // dd($post->toArray());
         return view('client.pages.detail', compact('post'));
     }
+
+    public function getPosts(){
+        $posts = Post::take(10)->get();
+        return view('client.pages.posts',compact('posts'));
+    }
 }

@@ -1,5 +1,5 @@
 <header>
-    <div class="md:flex py-4 items-center justify-center w-full bg-[#f8f8f8] hidden px-9">
+    <div class="md:flex py-4 items-center justify-center w-full hidden px-9">
         <p class="text-2xl font-medium text-gray-600">Quản lý bài viết</p>
         <div class="flex gap-4 flex-1 items-center justify-end">
             <div>

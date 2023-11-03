@@ -8,7 +8,7 @@ use App\Models\Tag;
 class TagsController extends Controller
 {
     public function index(){
-        $tags = Tag::paginate(1);
+        $tags = Tag::paginate(8);
         return view('admin.pages.quanlytags.listTags', compact('tags'));
     }
 

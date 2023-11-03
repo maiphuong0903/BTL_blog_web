@@ -8,7 +8,7 @@ use App\Models\Tutorial;
 class TutorialController extends Controller
 {
     public function index(){
-        $tutorials = Tutorial::paginate(3);
+        $tutorials = Tutorial::paginate(8);
         return view('admin.pages.quanlydanhmuc.listTutorials',[
             'tutorials' => $tutorials
         ]);
@@ -27,7 +27,7 @@ class TutorialController extends Controller
         $request->validate([
             'name' => 'required|unique:tutorials,name',
         ], [
-            'name.required' => 'Không được để trống',
+            'name.required' => 'Tên không được để trống',
             'name.unique' => 'Tên đã tồn tại trong cơ sở dữ liệu',
         ]);        
    
@@ -48,6 +48,8 @@ class TutorialController extends Controller
     public function update(Request $request, $id){
         $request->validate([
             'name' => 'required',
+        ], [
+            'name.required' => 'Tên không được để trống',
         ]);
         $tutorial = Tutorial::Where('id', $id)
                     ->update([

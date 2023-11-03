@@ -12,7 +12,7 @@
         <thead>
             <tr class="bg-[#f3f2f7] text-left text-gray-600 text-[15px]">
                 <th class="border border-gray-300 py-3 text-center">STT</th>
-                <th class="border border-gray-300 px-2">TÊN Tag</th>
+                <th class="border border-gray-300 px-2">TÊN TAG</th>
                 <th class="border border-gray-300 px-2">NGÀY TẠO</th>
                 <th class="border border-gray-300 px-2">NGÀY SỬA</th>
                 <th class="border border-gray-300 px-2"></th>
