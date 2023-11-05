@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -64,6 +65,17 @@ Route::delete('/delete_tag/{id}', [TagsController::class, 'destroy']);
 Route::get('/dashboard', function () {
     return view('admin.pages.home');
 })->middleware(['auth', 'verified'])->name('dashboard/home');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.home');
+
+    Route::prefix('posts')->group(function () {
+        Route::get('/', [PostController::class, 'index'])->name('admin.posts.index');
+        Route::get('/create', [PostController::class, 'create'])->name('admin.posts.create');
+        Route::post('/upload_image', [PostController::class, 'uploadImage'])->name('admin.posts.upload_image');
+        Route::post('/store', [PostController::class, 'store'])->name('admin.posts.store');
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
