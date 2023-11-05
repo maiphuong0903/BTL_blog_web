@@ -9,7 +9,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.posts.index');
+        $posts = Post::all();
+        return view('admin.pages.posts.index', compact('posts'));
     }
 
     public function create()
@@ -35,7 +36,17 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+
+        $data = [
+            "tutorial_id" => $request->get('tutorial_id'),
+            "title" => $request->get('title'),
+            "content" => $request->get('content'),
+            "created_by" => auth()->user()->id,
+        ];
+
+        Post::create($data);
+
+        return redirect()->route('admin.posts.index');
     }
 
 
