@@ -6,7 +6,7 @@
 @section('content')
 <div class="bg-white shadow-md rounded-md px-5 pt-3 pb-20 relative min-h-[calc(100vh-145px)]">
     <div class="flex justify-end">
-        <a class="bg-[#292c45] text-white px-2 py-2 rounded-md my-5" href="{{ route('themtaikhoan') }}">Thêm User</a>
+        <a class="bg-[#292c45] text-white px-2 py-2 rounded-md my-5" href="{{ route('admin.users.create') }}">Thêm User</a>
     </div>
     <table class="w-full">
         <thead>

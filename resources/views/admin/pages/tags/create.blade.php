@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="bg-white shadow-md rounded-md px-5 pt-3 pb-20 relative min-h-[calc(100vh-145px)]">
-    <form action="/add_tag" method="post" class="px-7 py-6">
+    <form action="{{ route('admin.tags.store') }}" method="post" class="px-7 py-6">
         <h1 class="text-[30px] text-center mb-7 font-medium">Thêm Tags Bài Viết</h1>
        @csrf
        <div class="w-full px-3 mb-6 md:mb-0">

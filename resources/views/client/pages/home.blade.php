@@ -81,8 +81,8 @@
                 <a  href="{{ route('client.post.detail', ['post' => $post->id]) }}" class="mb-10 bg-white rounded-lg overflow-hidden shadow-md">
                     <img class="w-full h-[210px] object-cover" src="https://source.unsplash.com/random" alt="">
                     <div class="flex flex-col h-[180px] px-2.5 pb-3">
-                        <div class="py-2 font-semibold text-gray-800 h-[60px] overflow-hidden">{{ $post->title }}</div>
-                        <div class="h-[60px] overflow-hidden mt-1">
+                        <div class="py-2 font-semibold text-gray-800 h-[60px] overflow-hidden text-lg">{{ $post->title }}</div>
+                        <div class="h-[50px] overflow-hidden mt-1">
                             <p class="text-sm text-gray-500">
                                 {!! $post->content !!}
                             </p>

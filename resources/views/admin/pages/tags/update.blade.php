@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="bg-white shadow-md rounded-md px-5 pt-3 pb-20 relative min-h-[calc(100vh-145px)]">
-    <form action="/edit_tag/{{$tags->id}}" method="post" class="px-7 py-6">
+    <form action="{{ route('admin.tags.update', $tags->id) }}" method="post" class="px-7 py-6">
         <h1 class="text-[30px] text-center mb-7 font-medium">Sửa Tags Bài Viết</h1>
        @csrf
        @method('PUT')

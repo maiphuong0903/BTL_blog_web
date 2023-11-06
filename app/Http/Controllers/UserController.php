@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -10,24 +11,17 @@ class UserController extends Controller
 {
     public function index(){
         $users = User::paginate(8);
-        return view('admin.pages.quanlytaikhoan.listUsers',[
+        return view('admin.pages.users.index',[
             'users' => $users
         ]);
     }
 
     public function create(){
-        return view('admin.pages.quanlytaikhoan.addUsers');
+        return view('admin.pages.users.create');
     }
 
-    public function store(Request $request){
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email',
-        //     'password' => 'required',
-        //     'role' => 'required',
-        //     'avatar' => 'mimes:png,jpg,jpeg|max:5048'
-        // ]);
-      
+    public function store(CreateUserRequest $request){   
+        $request->validate();   
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $path = $file->store('public/images');
@@ -42,6 +36,6 @@ class UserController extends Controller
             'role' => 1,
         ]);
         $user->save();
-        return redirect('/admin/qltaikhoan');
+        return redirect()->route('admin.users.index');
     }
 }

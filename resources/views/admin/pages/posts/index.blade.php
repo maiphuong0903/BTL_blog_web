@@ -21,7 +21,7 @@
         <tbody class="cursor-pointer">
             @foreach ($posts as $post)
                 <tr class="hover:bg-yellow-100">
-                    <td class="border border-gray-300 py-3 text-center">1</td>
+                    <td class="border border-gray-300 py-3 text-center">{{ $post->id }}</td>
                     <td class="border border-gray-300 px-2">{{ $post->title }}</td>
                     <td class="border border-gray-300 px-2">{{ $post->author->name ?? "unknow"}}</td>
                     <td class="border border-gray-300 px-2">{{ $post->created_at }}</td>

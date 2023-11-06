@@ -9,11 +9,11 @@ class TagsController extends Controller
 {
     public function index(){
         $tags = Tag::paginate(8);
-        return view('admin.pages.quanlytags.listTags', compact('tags'));
+        return view('admin.pages.tags.index', compact('tags'));
     }
 
     public function create(){
-        return view('admin.pages.quanlytags.addTags');
+        return view('admin.pages.tags.create');
     }
 
     public function store(Request $request){
@@ -28,13 +28,13 @@ class TagsController extends Controller
             'name' => $request->input('name'),
         ]);
         $tag->save();
-        return redirect('/admin/qltag');
+        return redirect()->route('admin.tags.index');
     }
    
 
     public function edit($id){
         $tags = Tag::find($id);
-        return view('admin.pages.quanlytags.editTags',compact('tags'));
+        return view('admin.pages.tags.update',compact('tags'));
     }
 
     public function update(Request $request, $id){
@@ -47,7 +47,7 @@ class TagsController extends Controller
                     ->update([
                         'name' => $request->input('name'),
                     ]);
-        return redirect('/admin/qltag');
+        return redirect()->route('admin.tags.index');
     }
 
     public function destroy($id){

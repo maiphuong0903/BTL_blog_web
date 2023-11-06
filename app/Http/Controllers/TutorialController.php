@@ -9,18 +9,18 @@ class TutorialController extends Controller
 {
     public function index(){
         $tutorials = Tutorial::paginate(8);
-        return view('admin.pages.quanlydanhmuc.listTutorials',[
+        return view('admin.pages.tutorials.index',[
             'tutorials' => $tutorials
         ]);
     }
 
     public function show($id){
         $tutorial = Tutorial::find($id);
-        return view('admin.pages.quanlydanhmuc.showTutorials')->with('tutorial', $tutorial);
+        return view('admin.pages.tutorials.detail')->with('tutorial', $tutorial);
     }
 
     public function create(){
-        return view('admin.pages.quanlydanhmuc.addTutorials');
+        return view('admin.pages.tutorials.create');
     }
 
     public function store(Request $request){
@@ -36,13 +36,13 @@ class TutorialController extends Controller
             'description' => $request->input('description')
         ]);
         $tutorial->save();
-        return redirect('/admin/qldanhmuc');
+        return redirect()->route('admin.tutorials.index');
     }
    
 
     public function edit($id){
         $tutorial = Tutorial::find($id);
-        return view('admin.pages.quanlydanhmuc.editTutorials')->with('tutorial', $tutorial);
+        return view('admin.pages.tutorials.update')->with('tutorial', $tutorial);
     }
 
     public function update(Request $request, $id){
@@ -56,7 +56,7 @@ class TutorialController extends Controller
                         'name' => $request->input('name'),
                         'description' => $request->input('description')
                     ]);
-        return redirect('/admin/qldanhmuc');
+        return redirect()->route('admin.tutorials.index');
     }
 
     public function destroy($id){

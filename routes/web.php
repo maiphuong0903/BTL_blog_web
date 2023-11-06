@@ -35,37 +35,50 @@ Route::get('/admin/home', function () {
     return view('admin.pages.home');
 })->name('admin.home');
 
-//Bài Viết - Posts
-Route::get('/admin/qlbaiviet', function () {
-    return view('admin.pages.quanlybaiviet.listPosts');
-})->name('admin.qlbaiviet');
 
 // Tài Khoản - Users
-Route::get('/admin/qltaikhoan', [UserController::class, 'index'])->name('admin.qltaikhoan');
-Route::get('/users/create', [UserController::class, 'create'])->name('themtaikhoan');
-Route::post('/users', [UserController::class, 'store']);
+Route::prefix('admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.home');
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
+        Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
+        Route::post('/store', [UserController::class, 'store'])->name('admin.users.store');
+    });
+});
+
 
 // Danh Mục - Tutorials
-Route::get('/admin/qldanhmuc', [TutorialController::class, 'index'])->name('admin.qldanhmuc');
-Route::get('/danhmuc/detail/{id}', [TutorialController::class, 'show'])->name('danhmuc.detail');
-Route::get('/themdanhmuc', [TutorialController::class, 'create'])->name('admin.themdanhmuc');
-Route::post('/add_danhmuc', [TutorialController::class, 'store']);
-Route::get('/suadanhmuc/{id}', [TutorialController::class, 'edit'])->name('admin.suadanhmuc');
-Route::put('/edit_danhmuc/{id}', [TutorialController::class, 'update']);
-Route::delete('/delete_danhmuc/{id}', [TutorialController::class, 'destroy']);
+Route::prefix('admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.home');
+
+    Route::prefix('tutorials')->group(function () {
+        Route::get('/', [TutorialController::class, 'index'])->name('admin.tutorials.index');
+        Route::get('/detail/{id}', [TutorialController::class, 'show'])->name('admin.tutorials.detail');
+        Route::get('/create', [TutorialController::class, 'create'])->name('admin.tutorials.create');
+        Route::post('/store', [TutorialController::class, 'store'])->name('admin.tutorials.store');
+        Route::get('/edit/{id}', [TutorialController::class, 'edit'])->name('admin.tutorials.edit');
+        Route::put('/update/{id}', [TutorialController::class, 'update'])->name('admin.tutorials.update');
+        Route::delete('/delete/{id}', [TutorialController::class, 'destroy'])->name('admin.tutorials.destroy');
+    });
+});
 
 // Tags
-Route::get('/admin/qltag', [TagsController::class, 'index'])->name('admin.qlTag');
-Route::get('/themtag', [TagsController::class, 'create'])->name('admin.themtag');
-Route::post('/add_tag', [TagsController::class, 'store']);
-Route::get('/suaTag/{id}', [TagsController::class, 'edit'])->name('admin.suaTag');
-Route::put('/edit_tag/{id}', [TagsController::class, 'update']);
-Route::delete('/delete_tag/{id}', [TagsController::class, 'destroy']);
+Route::prefix('admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.home');
 
-Route::get('/dashboard', function () {
-    return view('admin.pages.home');
-})->middleware(['auth', 'verified'])->name('dashboard/home');
+    Route::prefix('tags')->group(function () {
+        Route::get('/', [TagsController::class, 'index'])->name('admin.tags.index');
+        Route::get('/detail/{id}', [TagsController::class, 'show'])->name('admin.tags.detail');
+        Route::get('/create', [TagsController::class, 'create'])->name('admin.tags.create');
+        Route::post('/store', [TagsController::class, 'store'])->name('admin.tags.store');
+        Route::get('/edit/{id}', [TagsController::class, 'edit'])->name('admin.tags.edit');
+        Route::put('/update/{id}', [TagsController::class, 'update'])->name('admin.tags.update');
+        Route::delete('/delete/{id}', [TagsController::class, 'destroy'])->name('admin.tags.destroy');
+    });
+});
 
+// Posts
 Route::prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.home');
 
@@ -76,6 +89,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/store', [PostController::class, 'store'])->name('admin.posts.store');
     });
 });
+
+Route::get('/dashboard', function () {
+    return view('admin.pages.home');
+})->middleware(['auth', 'verified'])->name('dashboard/home');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
