@@ -6,9 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "genealabs/laravel-caffeine": "*",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
-        "laravel/sanctum": "^3.2",
+        "laravel/sanctum": "*",
         "laravel/tinker": "^2.8"
     },
     "require-dev": {
@@ -50,7 +51,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/dusk"
+            ]
         }
     },
     "config": {
@@ -64,4 +67,5 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true
+    
 }
