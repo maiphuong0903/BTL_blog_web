@@ -24,7 +24,7 @@
                         </div>
                     </li>
                     <li><a href="{{ route('client.contact') }}">Liên hệ</a></li>
-                </ul>              
+                </ul>
             </nav>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -36,11 +36,47 @@
             </div>
         </div>
 
-        {{-- button login --}}
-        <div class="lg:flex lg:flex-1 lg:justify-end hidden text-xl">
-            <a href="{{ route('login') }}" class="bg-[#292c45] text-white px-4 py-2 rounded-lg">Log in </a>
-        </div> 
-        
+
+        @auth
+        <div class="flex gap-4 flex-1 items-center justify-end">
+            <div>
+                <h1 class="text-gray-700 font-medium text-right capitalize text-[18px]">{{ Auth::user()->name }}</h1>
+                <p class="text-[15px] text-gray-600 font-normal text-right">Member</p>
+           </div>
+           <div>
+            <x-dropdown align="right" width="48">
+                <x-slot name="trigger">
+                        <div class="ml-1">
+                            <img class="h-14 w-14 rounded-full" src="https://vnw-img-cdn.popsww.com/api/v2/containers/file2/cms_topic/doraemons9_05_seriesdetailimagemobile-80424f74d030-1609395371290-iZgELVcX.png?v=0" alt="">
+                        </div>
+                    </button>
+                </x-slot>
+
+                <x-slot name="content">
+                    <x-dropdown-link :href="route('profile.edit')">
+                        {{ __('Profile') }}
+                    </x-dropdown-link>
+
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </form>
+                </x-slot>
+            </x-dropdown>
+           </div>
+        </div>
+        @else
+            <div class="lg:flex lg:flex-1 lg:justify-end hidden text-xl">
+                <a href="{{ route('login') }}" class="bg-[#292c45] text-white px-4 py-2 rounded-lg">Log in </a>
+            </div>
+        @endauth
+
         {{-- icon mobile --}}
         <div class="flex flex-1 items-center justify-end lg:hidden">
             <button class="outline-none mobile-menu-button">
@@ -49,8 +85,8 @@
                 </svg>
             </button>
         </div>
-          
-    </div>  
+
+    </div>
     <!-- mobile menu -->
         <div class="hidden mobile-menu bg-blue-300">
             <ul class="py-3">
@@ -68,8 +104,8 @@
         menu.classList.toggle("hidden");
     });
 </script>
-        
-        
-       
+
+
+
 </header>
 
