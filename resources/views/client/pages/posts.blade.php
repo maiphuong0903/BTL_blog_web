@@ -12,13 +12,13 @@
             @foreach ($posts as $post)
                 <a  href="{{ route('client.post.detail', ['post' => $post->id]) }}" class="mb-10 bg-white rounded-lg overflow-hidden shadow-md">
                     <img class="w-full h-[210px] object-cover" src="https://source.unsplash.com/random" alt="">
-                    <div class="flex flex-col h-[180px] px-2.5 pb-3">
+                    <div class="flex flex-col h-[200px] px-2.5 pb-3">
                         <div class="py-2 font-semibold text-gray-800 h-[60px] overflow-hidden">{{ $post->title }}</div>
-                        <div class="h-[60px] overflow-hidden mt-1">
+                        {{-- <div class="h-[50px] overflow-hidden mt-1">
                             <p class="text-sm text-gray-500">
                                 {!! $post->content !!}
                             </p>
-                        </div>
+                        </div> --}}
 
                         <div class="flex 2xl:pr-1 mt-auto items-center">
                             <div class="text-[12px] text-white px-3 py-0.5 rounded-full bg-[#292c45] capitalize">

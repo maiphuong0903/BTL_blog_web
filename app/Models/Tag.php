@@ -9,7 +9,6 @@ class Tag extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'tag_id',
         'name',
         'created_at',
         'updated_at',
@@ -22,5 +21,9 @@ class Tag extends Model
     public function getUpdatedAtAttribute($value)
     {
         return  Carbon::parse($value)->format('d-m-Y');
+    }
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
     }
 }

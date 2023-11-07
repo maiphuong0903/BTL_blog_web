@@ -5,9 +5,7 @@
 
 @section('content')
 <div class="bg-white shadow-md rounded-md px-5 pt-3 pb-20 relative min-h-[calc(100vh-145px)]">
-    <div class="flex justify-end">
-        <a class="bg-[#292c45] text-white px-2 py-2 rounded-md my-5" href="{{ route('admin.users.create') }}">Thêm User</a>
-    </div>
+    <h1 class="text-[30px] text-center mt-3 mb-5 font-medium">Danh Sách Tài Khoản</h1>
     <table class="w-full">
         <thead>
             <tr class="bg-[#f3f2f7] text-left text-gray-600 text-[15px]">
@@ -18,12 +16,12 @@
             </tr>
         </thead>
         <tbody class="cursor-pointer">
-            @foreach ($users as $user)
+            @foreach ($users as $key => $user)
             <tr class="hover:bg-yellow-100">
-                <td class="border border-gray-300 py-3 text-center">{{$user->id}}</td>
+                <td class="border border-gray-300 py-3 text-center">{{($users->currentPage() - 1) * $users->perPage() + $key+1}}</td>
                 <td class="border border-gray-300 px-2">{{$user->name}}</td>
                 <td class="border border-gray-300 px-2">{{$user->email}}</td>
-                <td class="border border-gray-300 px-2">Admin</td>
+                <td class="border border-gray-300 px-2">{{ $user->role == 1 ? 'Admin' : 'User' }}</td>
             </tr>
             @endforeach
         </tbody>

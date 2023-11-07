@@ -47,9 +47,10 @@ class TutorialController extends Controller
 
     public function update(Request $request, $id){
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:tutorials,name,' . $id,
         ], [
             'name.required' => 'Tên không được để trống',
+            'name.unique' => 'Tên đã tồn tại trong cơ sở dữ liệu',
         ]);
         $tutorial = Tutorial::Where('id', $id)
                     ->update([

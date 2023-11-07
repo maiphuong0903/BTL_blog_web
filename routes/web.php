@@ -18,7 +18,7 @@ use App\Http\Controllers\TagsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/', [HomeController::class, 'index'])->name('client.home');
 Route::get('/', [HomeController::class, 'index'])->name('client.home');
 Route::get('/post/{post}', [PostController::class, 'getPostDetail'])->name('client.post.detail');
 Route::get('/posts', [PostController::class, 'getPosts'])->name('client.posts');
@@ -26,14 +26,17 @@ Route::get('/contact', function () {
     return view('client.pages.contact');
 })->name('client.contact');
 
-
+Route::get('/admin/home', function () {
+    return view('admin.pages.home');
+})->name('admin.home');
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-Route::get('/admin/home', function () {
-    return view('admin.pages.home');
-})->name('admin.home');
+
+// Route::get('/admin/home', function () {
+//     return view('admin.pages.home');
+// })->name('admin.home');
 
 
 // Tài Khoản - Users
@@ -42,8 +45,6 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
-        Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
-        Route::post('/store', [UserController::class, 'store'])->name('admin.users.store');
     });
 });
 
@@ -87,6 +88,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/create', [PostController::class, 'create'])->name('admin.posts.create');
         Route::post('/upload_image', [PostController::class, 'uploadImage'])->name('admin.posts.upload_image');
         Route::post('/store', [PostController::class, 'store'])->name('admin.posts.store');
+        Route::get('/edit/{id}', [PostController::class, 'edit'])->name('admin.posts.edit');
+        Route::put('/update/{id}', [PostController::class, 'update'])->name('admin.posts.update');
+        Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('admin.posts.destroy');
     });
 });
 

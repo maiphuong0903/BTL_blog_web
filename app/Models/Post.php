@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +15,9 @@ class Post extends Model
         'tutorial_id',
         'title',
         'content',
-        'created_by'
+        'created_by',
+        'tag_id',
+        'image',
     ];
 
     protected $with = ['author'];
@@ -27,5 +30,20 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return  Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return  Carbon::parse($value)->format('d-m-Y');
+    }
+    
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

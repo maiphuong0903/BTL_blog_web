@@ -25,7 +25,7 @@
         @include('admin.partial.menu')
         <div class="lg:w-full bg-[#f8f8f8]">
             @include('admin.partial.header')
-            <main class="px-9 pt-6 pb-10 min-h-[calc(100vh-120px)] xl:min-h-[calc(100vh-145px)] bg-[#f8f8f8]">
+            <main class="px-9 pt-2 pb-10 min-h-[calc(100vh-120px)] xl:min-h-[calc(100vh-145px)] bg-[#f8f8f8]">
                 @yield('content')
             </main>
         </div>

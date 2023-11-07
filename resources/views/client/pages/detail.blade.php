@@ -4,8 +4,9 @@
 
 
 @section('content')
-<div class="xl:px-24 py-10 px-6">
-    <h1 class="text-2xl text-white bg-[#292c45] px-5 py-5 rounded-lg w-full">{{ $post->title}}</h1>
+<div class="px-5 md:px-10 lg:px-20 xl:px-60 py-10">
+    {{-- posts --}}
+    <h1 class="text-3xl text-white bg-[#292c45] px-5 py-5 rounded-lg w-full font-semibold">{{ $post->title}}</h1>
     <div class="flex flex-1 gap-4 justify-end my-5 mx-5">
         <p>{{$post->created_at}}</p>
         <div class="flex gap-1 items-center justify-center">
@@ -23,7 +24,23 @@
         </div>
     </div>
 
-    <p>{!! $post->content !!}</p>
+    {{-- tags --}}
+    <div class="border-dotted border-2 py-3 px-7 border-gray-400 flex gap-3 mb-10 rounded-lg items-center">
+       <div>
+            <p class="text-lg font-medium text-gray-700">TAG: </p>
+       </div>
+        <div class="flex space-x-2">
+            @foreach ($tags as $tag)
+                <button class="bg-[#292c45] text-white px-3 py-1 rounded-md">{{ $tag->name }}</button>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- content --}}
+    <div class="text-xl leading-10">
+        <p>{!! $post->content !!}</p>
+    </div>
+   
 
     {{-- comment --}}
     <div class="mt-20 mb-8 rounded-lg px-5 py-5">
@@ -71,6 +88,7 @@
         </div>
     </div>
 
+    {{-- posts liên quan --}}
     <h1 class="text-2xl font-semibold text-gray-500 mt-10 mb-5">Một số bài viết liên quan</h1>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-x-7">
         <div class="bg-white shadow-md rounded-lg mb-14 overflow-hidden">
