@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Models\Tutorial;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -19,8 +20,12 @@ class PostController extends Controller
     public function getPostDetail($post_id)
     {
         $post = Post::find($post_id);
-        $comments = $post-> comments;
-        // dd($post->toArray());
+        $comments = $post->comments->whereNull("reply_comment");
+        foreach($comments as $comment) {
+            $comment->reply = [];
+            $reply =  Comment::where('reply_comment', $comment->id)->get();
+            if($reply)  $comment->reply = $reply;
+        }
         $tags = $post->tags;
         return view('client.pages.detail', compact('post','tags','comments'));
     }
@@ -33,7 +38,7 @@ class PostController extends Controller
 
     public function create()
     {
-        $tutorials = Tutorial::all(); 
+        $tutorials = Tutorial::all();
         $tags = Tag::all();
         return view('admin.pages.posts.create', compact('tutorials' , 'tags'));
     }
@@ -57,7 +62,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = [
-            "tutorial_id" => $request->get('tutorial_id'), 
+            "tutorial_id" => $request->get('tutorial_id'),
             "title" => $request->get('title'),
             "content" => $request->get('content'),
             "created_by" => auth()->user()->id,
@@ -67,9 +72,9 @@ class PostController extends Controller
             $path = $file->store('public/images');
             $url = Storage::url($path);
             $data['image'] = $url;
-        } 
+        }
         $post = Post::create($data);
-       
+
         // Xử lý tags đã chọn
         if ($request->has('tags')) {
             $post->tags()->attach($request->input('tags'));
@@ -80,12 +85,12 @@ class PostController extends Controller
 
 
     public function edit($id){
-        $post = Post::find($id); 
-        $tutorials = Tutorial::all(); 
+        $post = Post::find($id);
+        $tutorials = Tutorial::all();
         $tags = Tag::all();
         return view('admin.pages.posts.update', compact('post', 'tutorials', 'tags'));
     }
-    
+
 
     public function update(Request $request, $id){
         $post = Post::find($id);
@@ -94,7 +99,7 @@ class PostController extends Controller
             $file = $request->file('image');
             $path = $file->store('public/images');
             $url = Storage::url($path);
-        } 
+        }
         $post->update([
             "tutorial_id" => $request->get('tutorial_id'),
             "title" => $request->get('title'),
@@ -102,16 +107,16 @@ class PostController extends Controller
             "created_by" => auth()->user()->id,
             "image" =>  $url,
         ]);
-    
+
         if ($request->has('tags')) {
             $post->tags()->sync($request->input('tags'));
         }
-    
+
         return redirect()->route('admin.posts.index');
-    }  
-    
+    }
+
     public function destroy($id){
-        $post = Post::find($id); 
+        $post = Post::find($id);
         $post->delete();
         return back();
     }

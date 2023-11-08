@@ -6,8 +6,21 @@
 @section('content')
 <div class="px-5 md:px-10 lg:px-20 xl:px-60 py-10">
     {{-- posts --}}
-    <h1 class="text-3xl text-white bg-[#292c45] px-5 py-5 rounded-lg w-full font-semibold">{{ $post->title}}</h1>
-    <div class="flex flex-1 gap-4 justify-end my-5 mx-5">
+    <h1 class="text-3xl text-[#292c45] py-5 rounded-lg w-full font-bold">{{ $post->title}}</h1>
+    <div class="flex items-center justify-between">
+        {{-- tags --}}
+        <div class="border-gray-400 flex gap-3 mb-10 rounded-lg items-center">
+            <div>
+                <p class="text-lg font-medium text-gray-700">TAG: </p>
+            </div>
+            <div class="flex space-x-2">
+                @foreach ($tags as $tag)
+                    <button class="bg-[#292c45] text-white px-3 py-1 rounded-md">{{ $tag->name }}</button>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="flex gap-4 justify-end ">
         <p>{{$post->created_at}}</p>
         <div class="flex gap-1 items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
@@ -24,27 +37,21 @@
         </div>
     </div>
 
-    {{-- tags --}}
-    <div class="border-dotted border-2 py-3 px-7 border-gray-400 flex gap-3 mb-10 rounded-lg items-center">
-       <div>
-            <p class="text-lg font-medium text-gray-700">TAG: </p>
-       </div>
-        <div class="flex space-x-2">
-            @foreach ($tags as $tag)
-                <button class="bg-[#292c45] text-white px-3 py-1 rounded-md">{{ $tag->name }}</button>
-            @endforeach
-        </div>
     </div>
+
+
+
 
     {{-- content --}}
     <div class="text-xl leading-10">
         <p>{!! $post->content !!}</p>
     </div>
-   
+
 
     {{-- comment --}}
     <h1 class="text-2xl font-medium mt-20 mb-2">Bình luận</h1>
     <hr class="border-[#c7c7c8]">
+    @auth()
     <div class="rounded-lg py-5">
         <form action="{{ route('client.comments.store', $post->id) }}" method="POST">
             @csrf
@@ -57,23 +64,28 @@
             </div>
         </form>
     </div>
-    
+    @else
+    <div class="flex gap-2 items-center mt-2">
+        Vui lòng đăng nhập để bình luận
+        <a href="{{ route('login') }}" class="text-blue-500 cursor-pointer">Đăng nhập ngay</a>
+    </div>
+    @endauth
 
 
     {{-- show comment --}}
     @foreach ($comments as $comment)
-    <div class="flex gap-5">
+    <div class="flex gap-5 mt-4">
         @if ($comment->avatar)
-            <img class="w-[70px] h-[70px] rounded-full object-cover cursor-pointer" src="{{ $comment->avatar }}" alt="Avatar">
-        @else 
-        <img class="w-[50px] h-[50px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
+            <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="{{ $comment->avatar }}" alt="Avatar">
+        @else
+        <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
         @endif
         <div>
-            <h1 class="font-medium text-xl cursor-pointer text-[#385898] capitalize">{{$post->author->name ?? "unknow"}}</h1>
+            <h1 class="font-medium text-lg cursor-pointer text-[#385898] capitalize mt-1.5">{{$comment->viewer->name ?? "unknow"}}</h1>
             <p class="text-gray-800 text-justify">{{ $comment->comment }}</p>
-            <div class="flex md:gap-5 gap-3 py-3">
-                <p class="cursor-pointer text-[#4d6fb5]">Thích</p>
-                <p class="cursor-pointer text-[#4d6fb5]" id="show-{{$comment->id}}">Phản hồi</p>
+            <div class="flex md:gap-5 gap-3 py-2">
+                <button class="cursor-pointer text-[#4d6fb5]">Thích</button>
+                <button class="cursor-pointer text-[#4d6fb5] comment-reply-button" id="show">Phản hồi</button>
                 <div class="flex gap-1 items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
@@ -84,20 +96,40 @@
             </div>
         </div>
     </div>
-    {{-- reply comment--}}
-    <div class="rounded-lg px-5 py-2 ml-[60px] hidden" id="hidden">
-        <div class="flex gap-4 my-3">
-            <img class="w-[50px] h-[50px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
-            <input class="w-full border-gray-300 rounded-md" type="text" placeholder="Thêm phản hồi...">
-        </div>
-        <div class="flex flex-1 justify-end gap-2">
-            <button class="bg-gray-300 px-3 py-2 font-normal rounded-md">Hủy</button>
-            <button class="bg-[#292c45] px-3 py-2 rounded-md text-white">Submit</button>
+
+
+    @foreach ($comment->reply as $reply)
+    <div class="flex gap-5 ml-12">
+        @if ($reply->avatar)
+            <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="{{ $comment->avatar }}" alt="Avatar">
+        @else
+        <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
+        @endif
+        <div>
+            <h1 class="font-medium text-lg cursor-pointer text-[#385898] capitalize mt-1.5">{{$reply->viewer->name ?? "unknow"}}</h1>
+            <p class="text-gray-800 text-justify">{{ $reply->comment }}</p>
         </div>
     </div>
-        
     @endforeach
-    
+
+    {{-- reply comment--}}
+    <div class="rounded-lg px-5 py-2 ml-[30px] hidden comment-reply-form" id="hidden">
+        <form action="{{ route('client.comments.store', $post->id) }}" method="POST">
+        @csrf
+            <div class="flex gap-4 my-3">
+                <img class="w-[50px] h-[50px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
+                <input hidden name="reply_comment" value="{{ $comment->id }}">
+                <input name="comment" class="w-full border-gray-300 rounded-md" type="text" placeholder="Thêm phản hồi...">
+            </div>
+            <div class="flex flex-1 justify-end gap-2">
+                <button type="button" class="bg-gray-300 px-3 py-2 font-normal rounded-md">Hủy</button>
+                <button type="submit" class="bg-[#292c45] px-3 py-2 rounded-md text-white">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    @endforeach
+
 
     {{-- posts liên quan --}}
     <h1 class="text-2xl font-semibold text-gray-500 mt-10 mb-5">Một số bài viết liên quan</h1>
@@ -121,26 +153,34 @@
     </div>
 </div>
 
-
 <script>
-    //reply
-    const show = document.getElementById('show');
-    const hidden = document.getElementById('hidden');
-    show.addEventListener('click', () => {
-    // Kiểm tra trạng thái hiển thị của phần tử
-    if (hidden.style.display === 'none' || hidden.style.display === '') {
-        hidden.style.display = 'block';
-    } else {
-        hidden.style.display = 'none';
-    }
+    // Tìm tất cả các phần tử có lớp "comment-reply-button" và "comment-reply-form"
+    const replyButtons = document.querySelectorAll('.comment-reply-button');
+    const replyForms = document.querySelectorAll('.comment-reply-form');
+
+    // Gán sự kiện click cho từng nút "Phản hồi"
+    replyButtons.forEach((button, index) => {
+        button.addEventListener('click', (event) => {
+            // Ngăn chặn sự kiện click từ việc lan ra bên ngoài
+            event.stopPropagation();
+
+            // Hiển thị form phản hồi tương ứng với nút được nhấn
+            replyForms[index].style.display = 'block';
+        });
     });
 
-    // Thêm sự kiện click vào cả trang web để ẩn phần tử khi click bất kỳ đâu trên trang
-    document.addEventListener('click', (event) => {
-    if (event.target !== show && event.target !== hidden) {
-        hidden.style.display = 'none';
-    }
+    // Gán sự kiện click cho nút "Hủy" trong mỗi form
+    const cancelButton = document.querySelectorAll('.comment-reply-form .bg-gray-300');
+    cancelButton.forEach((button, index) => {
+        button.addEventListener('click', (event) => {
+            // Ngăn chặn sự kiện click từ việc lan ra bên ngoài
+            event.stopPropagation();
+
+            // Ẩn form phản hồi tương ứng với nút "Hủy"
+            replyForms[index].style.display = 'none';
+        });
     });
 </script>
+
 
 @stop

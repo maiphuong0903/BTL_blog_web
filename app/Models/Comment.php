@@ -16,8 +16,15 @@ class Comment extends Model
         'reply_comment',
     ];
 
+    protected $with = ['viewer'];
+
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function viewer()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

@@ -9,14 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, $post_id){      
+    public function store(Request $request, $post_id){
         if (Auth::check()) {
             $comment = Comment::create([
-                'comment' => $request->input('comment'),
+                'comment' => $request->get('comment'),
                 'post_id' => $post_id,
+                'reply_comment' =>  $request->get('reply_comment') ?? null,
+                'created_by' => Auth::user()->id
             ]);
             $comment->save();
-            //dd($comment);
             return redirect()->route('client.post.detail', $post_id);
 
         } else {
