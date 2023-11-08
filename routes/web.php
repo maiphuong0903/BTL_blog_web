@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,5 +76,12 @@ Route::middleware('admin')->group(function () {
         });
     });
 });
-
+Route::prefix('comments')->group(function () {
+    //Route::get('/detail/{id}', [CommentController::class, 'show'])->name('admin.tags.detail');
+    //Route::get('/create', [CommentController::class, 'create'])->name('client.comments.create');
+    Route::post('/store/{post_id}', [CommentController::class, 'store'])->name('client.comments.store');
+    // Route::get('/edit/{id}', [CommentController::class, 'edit'])->name('admin.tags.edit');
+    // Route::put('/update/{id}', [CommentController::class, 'update'])->name('admin.tags.update');
+    // Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->name('admin.tags.destroy');
+});
 require __DIR__ . '/auth.php';

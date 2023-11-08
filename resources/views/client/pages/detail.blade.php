@@ -43,26 +43,37 @@
    
 
     {{-- comment --}}
-    <div class="mt-20 mb-8 rounded-lg px-5 py-5">
-        <h1 class="text-2xl font-medium">Bình luận</h1>
-        <div class="flex gap-4 my-3 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-14 h-14">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <input class="w-full border-gray-300 rounded-md mr-5" type="text" placeholder="Viết bình luận...">
-            <button class="bg-[#292c45] px-6 h-[40px] rounded-md text-white">Submit</button>
-        </div>
+    <h1 class="text-2xl font-medium mt-20 mb-2">Bình luận</h1>
+    <hr class="border-[#c7c7c8]">
+    <div class="rounded-lg py-5">
+        <form action="{{ route('client.comments.store', $post->id) }}" method="POST">
+            @csrf
+            <div class="flex gap-6 my-3">
+                <img class="w-[50px] h-[50px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
+                <textarea class="w-full border-gray-300 rounded-md py-4" name="comment" rows="2" placeholder="{{ Auth::check() ? 'Nhập bình luận.....' : 'Vui lòng đăng nhập để bình luận' }}"></textarea>
+            </div>
+            <div class="flex flex-1 justify-end">
+                <button class="bg-[#292c45] px-6 py-3 rounded-md text-white" type="submit">Submit</button>
+            </div>
+        </form>
     </div>
+    
+
 
     {{-- show comment --}}
+    @foreach ($comments as $comment)
     <div class="flex gap-5">
-        <img class="w-[70px] h-[70px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
+        @if ($comment->avatar)
+            <img class="w-[70px] h-[70px] rounded-full object-cover cursor-pointer" src="{{ $comment->avatar }}" alt="Avatar">
+        @else 
+        <img class="w-[50px] h-[50px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
+        @endif
         <div>
             <h1 class="font-medium text-xl cursor-pointer text-[#385898] capitalize">{{$post->author->name ?? "unknow"}}</h1>
-            <p class="text-gray-800 text-justify">Doraemon là nhân vật chính hư cấu trong loạt Manga cùng tên của họa sĩ Fujiko F. Fujio. Trong truyện lấy bối cảnh ở thế kỷ 22, Doraemon là chú mèo robot của tương lai do xưởng Matsushiba — công xưởng chuyên sản xuất robot vốn dĩ nhằm mục đích chăm sóc trẻ nhỏ. Wikipedia</p>
+            <p class="text-gray-800 text-justify">{{ $comment->comment }}</p>
             <div class="flex md:gap-5 gap-3 py-3">
                 <p class="cursor-pointer text-[#4d6fb5]">Thích</p>
-                <p class="cursor-pointer text-[#4d6fb5]">Phản hồi</p>
+                <p class="cursor-pointer text-[#4d6fb5]" id="show-{{$comment->id}}">Phản hồi</p>
                 <div class="flex gap-1 items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
@@ -73,13 +84,10 @@
             </div>
         </div>
     </div>
-
-    {{-- reply --}}
-    <div class="mb-8 rounded-lg px-5 py-5 ml-[60px]">
+    {{-- reply comment--}}
+    <div class="rounded-lg px-5 py-2 ml-[60px] hidden" id="hidden">
         <div class="flex gap-4 my-3">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-14 h-14">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
+            <img class="w-[50px] h-[50px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
             <input class="w-full border-gray-300 rounded-md" type="text" placeholder="Thêm phản hồi...">
         </div>
         <div class="flex flex-1 justify-end gap-2">
@@ -87,20 +95,17 @@
             <button class="bg-[#292c45] px-3 py-2 rounded-md text-white">Submit</button>
         </div>
     </div>
+        
+    @endforeach
+    
 
     {{-- posts liên quan --}}
     <h1 class="text-2xl font-semibold text-gray-500 mt-10 mb-5">Một số bài viết liên quan</h1>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-x-7">
         <div class="bg-white shadow-md rounded-lg mb-14 overflow-hidden">
-            <img class="w-full h-[210px] object-cover" src="https://source.unsplash.com/random" alt="">
-            <div class="flex flex-col h-[180px] px-2.5 pb-3">
+            <img class="w-full h-[180px] object-cover" src="https://source.unsplash.com/random" alt="">
+            <div class="flex flex-col h-[120px] px-2.5 pb-3">
                 <div class="py-2 font-semibold text-gray-800 h-[60px] overflow-hidden">{{ $post->title }}</div>
-                <div class="h-[60px] overflow-hidden mt-1">
-                    <p class="text-sm text-gray-500">
-                        {!! $post->content !!}
-                    </p>
-                </div>
-
                 <div class="flex 2xl:pr-1 mt-auto items-center">
                     <div class="text-[12px] text-white px-3 py-0.5 rounded-full bg-[#292c45]">
                         {{ $post->author->name ?? "unknow" }}
@@ -113,54 +118,29 @@
                 </div>
             </div>
         </div>
-
-        <div class="bg-white shadow-md rounded-lg mb-14 overflow-hidden">
-            <img class="w-full h-[210px] object-cover" src="https://source.unsplash.com/random" alt="">
-            <div class="flex flex-col h-[180px] px-2.5 pb-3">
-                <div class="py-2 font-semibold text-gray-800 h-[60px] overflow-hidden">{{ $post->title }}</div>
-                <div class="h-[60px] overflow-hidden mt-1">
-                    <p class="text-sm text-gray-500">
-                        {!! $post->content !!}
-                    </p>
-                </div>
-
-                <div class="flex 2xl:pr-1 mt-auto items-center">
-                    <div class="text-[12px] text-white px-3 py-0.5 rounded-full bg-[#292c45]">
-                        {{ $post->author->name ?? "unknow"}}
-                    </div>
-                    <div class="flex flex-1 justify-end">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white shadow-md rounded-lg mb-14 overflow-hidden">
-            <img class="w-full h-[210px] object-cover" src="https://source.unsplash.com/random" alt="">
-            <div class="flex flex-col h-[180px] px-2.5 pb-3">
-                <div class="py-2 font-semibold text-gray-800 h-[60px] overflow-hidden">{{ $post->title }}</div>
-                <div class="h-[60px] overflow-hidden mt-1">
-                    <p class="text-sm text-gray-500">
-                        {!! $post->content !!}
-                    </p>
-                </div>
-
-                <div class="flex 2xl:pr-1 mt-auto items-center">
-                    <div class="text-[12px] text-white px-3 py-0.5 rounded-full bg-[#292c45]">
-                        {{ $post->author->name ?? "unknow"}}
-                    </div>
-                    <div class="flex flex-1 justify-end">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
+
+
+<script>
+    //reply
+    const show = document.getElementById('show');
+    const hidden = document.getElementById('hidden');
+    show.addEventListener('click', () => {
+    // Kiểm tra trạng thái hiển thị của phần tử
+    if (hidden.style.display === 'none' || hidden.style.display === '') {
+        hidden.style.display = 'block';
+    } else {
+        hidden.style.display = 'none';
+    }
+    });
+
+    // Thêm sự kiện click vào cả trang web để ẩn phần tử khi click bất kỳ đâu trên trang
+    document.addEventListener('click', (event) => {
+    if (event.target !== show && event.target !== hidden) {
+        hidden.style.display = 'none';
+    }
+    });
+</script>
 
 @stop

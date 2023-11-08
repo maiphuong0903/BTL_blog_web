@@ -19,9 +19,10 @@ class PostController extends Controller
     public function getPostDetail($post_id)
     {
         $post = Post::find($post_id);
+        $comments = $post-> comments;
         // dd($post->toArray());
         $tags = $post->tags;
-        return view('client.pages.detail', compact('post','tags'));
+        return view('client.pages.detail', compact('post','tags','comments'));
     }
 
     public function getPosts()
