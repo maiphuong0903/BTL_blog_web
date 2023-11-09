@@ -17,8 +17,8 @@
                             <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownDefaultButton">
                                 @foreach ($tutorials as $tutorial)
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-lg font-light">{{ $tutorial->name }}</a>
-                                  </li>
+                                    <a href="{{ route('home.tutorial', ['tutorial_id' => $tutorial->id]) }}" class="block px-4 py-2 hover:bg-gray-100 text-lg font-light">{{ $tutorial->name }}</a>
+                                </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -33,7 +33,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <form action="" method="post">
+                <form action="{{ route('home.search' )}}" method="GET">
                     @csrf
                     <input type="search" id="default-search" name="search_term" class="lg:block w-[300px] xl:w-[400px] hidden p-[10px] pl-10 text-[17px] text-gray-900 border border-gray-200 rounded-2xl focus:ring-gray-300 focus:border-gray-300" placeholder="Nhập tên ..." required>
                 </form>

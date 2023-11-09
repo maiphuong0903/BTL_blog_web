@@ -10,6 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.home');
+        $postInMonth = Post::whereMonth('created_at', Carbon::now())->count();
+        return view('admin.pages.home', compact(['postInMonth']));
     }
 }

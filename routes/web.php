@@ -37,10 +37,10 @@ Route::middleware('admin')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('admin')->group(function () {      
+    Route::prefix('admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin.home');
         Route::get('/posts', [DashboardController::class, 'getPostsCountThisMonth']);
-        
+
         Route::prefix('users')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
         });
@@ -83,4 +83,8 @@ Route::prefix('comments')->group(function () {
     // Route::put('/update/{id}', [CommentController::class, 'update'])->name('admin.tags.update');
     // Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->name('admin.tags.destroy');
 });
+
+Route::get('/search', [HomeController::class, 'search'])->name('home.search');
+Route::get('/tutorial/{tutorial_id}', [HomeController::class, 'getByTutorial'])->name('home.tutorial');
+
 require __DIR__ . '/auth.php';
