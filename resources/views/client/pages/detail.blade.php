@@ -4,12 +4,13 @@
 
 
 @section('content')
-<div class="px-5 md:px-10 lg:px-20 xl:px-60 py-10">
-    {{-- posts --}}
-    <h1 class="text-3xl text-[#292c45] py-5 rounded-lg w-full font-bold">{{ $post->title}}</h1>
-    <div class="flex items-center justify-between">
+<div class="px-5 md:px-10 lg:px-20 xl:px-52 py-10">
+    <div class="bg-white shadow-md px-16 py-14">
+        {{-- posts --}}
+        <h1 class="text-4xl text-[#292c45] py-5 rounded-lg w-full font-bold">{{ $post->title}}</h1>
+        <div class="flex items-center justify-between mb-20">
         {{-- tags --}}
-        <div class="border-gray-400 flex gap-3 mb-10 rounded-lg items-center">
+        <div class="border-gray-400 flex gap-3 rounded-lg items-center">
             <div>
                 <p class="text-lg font-medium text-gray-700">TAG: </p>
             </div>
@@ -20,27 +21,23 @@
             </div>
         </div>
 
-        <div class="flex gap-4 justify-end ">
-        <p>{{$post->created_at}}</p>
-        <div class="flex gap-1 items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-            </svg>
-            <p>0</p>
-        </div>
+        <div class="flex gap-4">
+            <p>{{$post->created_at}}</p>
+            <div class="flex gap-1 items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                </svg>
+                <p>0</p>
+            </div>
 
-        <div class="flex gap-1 items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-            </svg>
-            <p>0</p>
+            <div class="flex gap-1 items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                </svg>
+                <p>0</p>
+            </div>
         </div>
     </div>
-
-    </div>
-
-
-
 
     {{-- content --}}
     <div class="text-xl leading-10">
@@ -65,9 +62,11 @@
         </form>
     </div>
     @else
-    <div class="flex gap-2 items-center mt-2">
-        Vui lòng đăng nhập để bình luận
-        <a href="{{ route('login') }}" class="text-blue-500 cursor-pointer">Đăng nhập ngay</a>
+    <div class="mt-4 border border-gray-300 py-6 rounded-lg text-center flex items-center text-gray-400 gap-1 justify-center cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
+        </svg>          
+        <a href="{{ route('login') }}" class="text-lg">Đăng nhập để bình luận</a>
     </div>
     @endauth
 
@@ -97,7 +96,7 @@
         </div>
     </div>
 
-
+    {{-- show reply --}}
     @foreach ($comment->reply as $reply)
     <div class="flex gap-5 ml-12">
         @if ($reply->avatar)
@@ -129,10 +128,12 @@
     </div>
 
     @endforeach
+    </div>
+    
 
 
     {{-- posts liên quan --}}
-    <h1 class="text-2xl font-semibold text-gray-500 mt-10 mb-5">Một số bài viết liên quan</h1>
+    <h1 class="text-2xl font-semibold text-gray-500 mt-20 mb-5">Một số bài viết liên quan</h1>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-x-7">
         <div class="bg-white shadow-md rounded-lg mb-14 overflow-hidden">
             <img class="w-full h-[180px] object-cover" src="https://source.unsplash.com/random" alt="">

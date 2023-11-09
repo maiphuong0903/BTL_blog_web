@@ -32,8 +32,9 @@ class PostController extends Controller
 
     public function getPosts()
     {
-        $posts = Post::take(10)->get();
-        return view('client.pages.posts', compact('posts'));
+        $posts = Post::paginate(12); 
+        $tags = Tag::take(10)->get();
+        return view('client.pages.posts', compact('posts', 'tags'));
     }
 
     public function create()

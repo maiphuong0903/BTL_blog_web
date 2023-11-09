@@ -25,7 +25,7 @@ class TagsController extends Controller
         ]);        
    
         $tag = Tag::create([
-            'name' => $request->input('name'),
+            'name' => $request->get('name'),
         ]);
         $tag->save();
         return redirect()->route('admin.tags.index');
@@ -46,7 +46,7 @@ class TagsController extends Controller
         ]);
         $tag = Tag::Where('id', $id)
                     ->update([
-                        'name' => $request->input('name'),
+                        'name' => $request->get('name'),
                     ]);
         return redirect()->route('admin.tags.index');
     }

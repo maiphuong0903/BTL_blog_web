@@ -20,7 +20,6 @@ use App\Http\Controllers\CommentController;
 |
 */
 Route::get('/', [HomeController::class, 'index'])->name('client.home');
-Route::get('/', [HomeController::class, 'index'])->name('client.home');
 Route::get('/post/{post}', [PostController::class, 'getPostDetail'])->name('client.post.detail');
 Route::get('/posts', [PostController::class, 'getPosts'])->name('client.posts');
 Route::get('/contact', function () {
@@ -38,9 +37,10 @@ Route::middleware('admin')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->group(function () {      
         Route::get('/', [DashboardController::class, 'index'])->name('admin.home');
-
+        Route::get('/posts', [DashboardController::class, 'getPostsCountThisMonth']);
+        
         Route::prefix('users')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
         });
@@ -68,6 +68,7 @@ Route::middleware('admin')->group(function () {
         Route::prefix('tags')->group(function () {
             Route::get('/', [TagsController::class, 'index'])->name('admin.tags.index');
             Route::get('/detail/{id}', [TagsController::class, 'show'])->name('admin.tags.detail');
+            Route::get('/show/post/{id}', [TagsController::class, 'showposts'])->name('admin.tags.showposts');
             Route::get('/create', [TagsController::class, 'create'])->name('admin.tags.create');
             Route::post('/store', [TagsController::class, 'store'])->name('admin.tags.store');
             Route::get('/edit/{id}', [TagsController::class, 'edit'])->name('admin.tags.edit');
@@ -77,8 +78,6 @@ Route::middleware('admin')->group(function () {
     });
 });
 Route::prefix('comments')->group(function () {
-    //Route::get('/detail/{id}', [CommentController::class, 'show'])->name('admin.tags.detail');
-    //Route::get('/create', [CommentController::class, 'create'])->name('client.comments.create');
     Route::post('/store/{post_id}', [CommentController::class, 'store'])->name('client.comments.store');
     // Route::get('/edit/{id}', [CommentController::class, 'edit'])->name('admin.tags.edit');
     // Route::put('/update/{id}', [CommentController::class, 'update'])->name('admin.tags.update');

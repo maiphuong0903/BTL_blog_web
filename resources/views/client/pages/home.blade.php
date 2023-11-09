@@ -80,7 +80,7 @@
             @foreach ($posts as $post)
                 <a  href="{{ route('client.post.detail', ['post' => $post->id]) }}" class="mb-10 bg-white rounded-lg overflow-hidden shadow-md">
                     <img class="w-full h-[210px] object-cover" src="{{ $post->image }}" alt="Image">
-                    <div class="flex flex-col h-[130px] px-2.5 pb-3">
+                    <div class="flex flex-col h-[130px] px-2.5 pb-3 mb-2">
                         <div class="py-2 font-medium text-gray-500 h-[60px] overflow-hidden text-lg">{{ $post->title }}</div>
                         {{-- <div class="h-[50px] overflow-hidden mt-1">
                             <p class="text-sm text-gray-500">

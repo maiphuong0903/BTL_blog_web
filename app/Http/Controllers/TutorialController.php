@@ -32,8 +32,8 @@ class TutorialController extends Controller
         ]);        
    
         $tutorial = Tutorial::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description')
+            'name' => $request->get('name'),
+            'description' => $request->get('description')
         ]);
         $tutorial->save();
         return redirect()->route('admin.tutorials.index');
@@ -54,8 +54,8 @@ class TutorialController extends Controller
         ]);
         $tutorial = Tutorial::Where('id', $id)
                     ->update([
-                        'name' => $request->input('name'),
-                        'description' => $request->input('description')
+                        'name' => $request->get('name'),
+                        'description' => $request->get('description')
                     ]);
         return redirect()->route('admin.tutorials.index');
     }
