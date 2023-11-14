@@ -1,12 +1,7 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Đổi mật khẩu') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __('Đảm bảo tài khoản của bạn đang sử dụng mật khẩu dài, ngẫu nhiên để giữ an toàn.') }}
-        </p>
+        <h2 class="text-xl font-medium text-gray-900">Đổi mật khẩu</h2>
+        <p class="mt-1 text-sm text-gray-600">Đảm bảo tài khoản của bạn đang sử dụng mật khẩu dài, ngẫu nhiên để giữ an toàn.</p>
     </header>
 
     <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
@@ -41,7 +36,7 @@
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
                     class="text-sm text-gray-600"
-                >{{ __('Lưu') }}</p>
+                >Lưu thành công</p>
             @endif
         </div>
     </form>

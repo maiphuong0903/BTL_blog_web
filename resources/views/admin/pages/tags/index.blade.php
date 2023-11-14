@@ -4,10 +4,11 @@
 
 
 @section('content')
-<div class="bg-white shadow-md rounded-md px-5 pt-3 pb-20 relative min-h-[calc(100vh-145px)] pb-14">
-    <div class="flex justify-end">
-        <a class="bg-[#292c45] text-white px-2 py-2 rounded-md my-5" href="{{ route('admin.tags.create') }}">Thêm Tags</a>
+<div class="bg-white shadow-md rounded-md px-7 pt-3 relative min-h-[calc(100vh-145px)] pb-14">
+    <div class="flex flex-1 items-center justify-end my-5">
+        <a class="bg-[#292c45] text-white px-2 py-2 rounded-md" href="{{ route('admin.tags.create') }}">Thêm Tags</a> 
     </div>
+
     <table class="w-full">
         <thead>
             <tr class="bg-[#f3f2f7] text-left text-gray-600 text-[15px]">

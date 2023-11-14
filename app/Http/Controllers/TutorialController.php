@@ -9,9 +9,7 @@ class TutorialController extends Controller
 {
     public function index(){
         $tutorials = Tutorial::paginate(8);
-        return view('admin.pages.tutorials.index',[
-            'tutorials' => $tutorials
-        ]);
+        return view('admin.pages.tutorials.index', compact('tutorials'));
     }
 
     public function show($id){

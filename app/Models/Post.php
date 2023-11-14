@@ -19,6 +19,7 @@ class Post extends Model
         'created_by',
         'tag_id',
         'image',
+        'status'
     ];
 
     protected $with = ['author'];
@@ -27,6 +28,11 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }   
 
     public function tutorial(): BelongsTo
     {

@@ -1,12 +1,8 @@
 <section class="space-y-6">
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Xóa tài khoản') }}
-        </h2>
+        <h2 class="text-lg font-medium text-gray-900">Xóa tài khoản</h2>
 
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __('Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận rằng bạn muốn xóa vĩnh viễn tài khoản của mình.') }}
-        </p>
+        <p class="mt-1 text-sm text-gray-600 w-full">Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận rằng bạn muốn xóa vĩnh viễn tài khoản của mình. </p>
     </header>
 
     <x-danger-button
@@ -19,13 +15,9 @@
             @csrf
             @method('delete')
 
-            <h2 class="text-lg font-medium text-gray-900">
-                {{ __('Bạn có chắc chắn muốn xóa tài khoản không?') }}
-            </h2>
+            <h2 class="text-lg font-medium text-gray-900">Bạn có chắc chắn muốn xóa tài khoản không?</h2>
 
-            <p class="mt-1 text-sm text-gray-600">
-                {{ __('Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận rằng bạn muốn xóa vĩnh viễn tài khoản của mình.') }}
-            </p>
+            <p class="mt-1 text-md text-gray-600">Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận rằng bạn muốn xóa vĩnh viễn tài khoản của mình.</p>
 
             <div class="mt-6">
                 <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />

@@ -4,10 +4,8 @@
 
 
 @section('content')
-<div class="bg-white shadow-md rounded-md px-5 pt-3 relative min-h-[calc(100vh-145px)] pb-14">
-    <div class="flex justify-end">
-        <a href="{{ route('admin.posts.create') }}" class="bg-[#292c45] text-white px-2 py-2 rounded-md my-5 cursor-pointer">Thêm Bài Viết</a>
-    </div>
+<div class="bg-white shadow-md rounded-md px-7 pt-3 relative min-h-[calc(100vh-145px)] pb-14">
+    <h1 class="text-[25px] text-center mt-3 mb-5 font-medium">Danh Sách Bài Viết</h1>
     <table class="w-full">
         <thead>
             <tr class="bg-[#f3f2f7] text-left text-gray-600 text-[15px]">
@@ -24,7 +22,9 @@
                 <tr class="hover:bg-yellow-100">
                     <td class="border border-gray-300 py-3 text-center">{{($posts->currentPage() - 1) * $posts->perPage() + $key+1}}</td>
                     <td class="border border-gray-300 px-2 py-3">
-                        <img class="w-[100px] h-[100px] object-cover mx-auto" src="{{ $post->image }}" alt="Image">
+                        <a href="{{ route('admin.posts.show', $post->id) }}">
+                            <img class="w-[80px] h-[80px] object-cover mx-auto" src="{{ $post->image }}" alt="Image">
+                        </a>
                     </td>
                     <td class="border border-gray-300 px-2">{{ $post->title }}</td>
                     <td class="border border-gray-300 px-2">{{ $post->author->name ?? "unknow"}}</td>

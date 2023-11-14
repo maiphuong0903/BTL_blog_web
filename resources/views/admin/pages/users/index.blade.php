@@ -4,8 +4,8 @@
 
 
 @section('content')
-<div class="bg-white shadow-md rounded-md px-5 pt-3 pb-20 relative min-h-[calc(100vh-145px)]">
-    <h1 class="text-[30px] text-center mt-3 mb-5 font-medium">Danh Sách Tài Khoản</h1>
+<div class="bg-white shadow-md rounded-md px-7 pt-3 pb-20 relative min-h-[calc(100vh-145px)]">
+    <h1 class="text-[25px] text-center mt-3 mb-5 font-medium">Danh Sách Tài Khoản</h1>
     <table class="w-full">
         <thead>
             <tr class="bg-[#f3f2f7] text-left text-gray-600 text-[15px]">

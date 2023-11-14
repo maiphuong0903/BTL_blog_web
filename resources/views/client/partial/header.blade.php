@@ -1,6 +1,6 @@
 <header class="sticky top-0">
     <div class="bg-[#fff] xl:px-24 py-4 flex lg:grid 2xl:grid-cols-7 lg:grid-cols-9 px-4 sm:px-6">
-        <h1 class="lg:text-[30px] font-semibold text-[35px]">Blog</h1>
+        <h1 class="lg:text-[30px] font-semibold text-[35px] text-blue-300">InsightHub</h1>
 
         {{-- nav --}}
         <div class="2xl:col-span-5 col-span-7 flex gap-8 items-center justify-center 2xl:text-xl">
@@ -45,19 +45,20 @@
         <div class="flex gap-4 flex-1 items-center justify-end">
             <div>
                 <h1 class="text-gray-700 font-medium text-right capitalize text-[18px]">{{ Auth::user()->name }}</h1>
-                <p class="text-[15px] text-gray-600 font-normal text-right">Member</p>
+                <p class="text-[15px] text-gray-600 font-normal text-right">{{ auth()->user()->role == 1 ? 'Admin' : 'Member' }}</p>
            </div>
            <div>
             <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
-                        <div class="ml-1">
-                            <img class="h-14 w-14 rounded-full" src="https://vnw-img-cdn.popsww.com/api/v2/containers/file2/cms_topic/doraemons9_05_seriesdetailimagemobile-80424f74d030-1609395371290-iZgELVcX.png?v=0" alt="">
-                        </div>
-                    </button>
+                    @if(auth()->user()->avatar)
+                    <img class="h-14 w-14 rounded-full object-cover cursor-pointer" src="{{ auth()->user()->avatar }}" alt="">
+                    @else
+                        <img class="h-14 w-14 rounded-full object-cover cursor-pointer" src="https://vnw-img-cdn.popsww.com/api/v2/containers/file2/cms_topic/doraemons9_05_seriesdetailimagemobile-80424f74d030-1609395371290-iZgELVcX.png?v=0" alt="">
+                    @endif
                 </x-slot>
 
                 <x-slot name="content">
-                    <x-dropdown-link :href="route('profile.edit')">
+                    <x-dropdown-link :href="route('client.account')">
                         {{ __('Profile') }}
                     </x-dropdown-link>
 

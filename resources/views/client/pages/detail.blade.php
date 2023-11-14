@@ -24,17 +24,25 @@
         <div class="flex gap-4">
             <p>{{$post->created_at}}</p>
             <div class="flex gap-1 items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
                 </svg>
-                <p>0</p>
+                <p>({{ optional($post->comments)->count() ?? 0 }})</p>
             </div>
 
             <div class="flex gap-1 items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                </svg>
-                <p>0</p>
+                <button class="toggle-favorite" data-post-id="{{ $post->id }}" data-is-like="{{ optional($post->like)->is_like ? 'true' : 'false' }}">
+                    @if (optional($post->like)->is_like)
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg> 
+                    @else
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>           
+                    @endif
+                </button>
+                <p>( {{ optional($post)->likes_count ?? 0 }} )</p>
             </div>
         </div>
     </div>
@@ -130,30 +138,30 @@
     @endforeach
     </div>
     
-
-
     {{-- posts liên quan --}}
     <h1 class="text-2xl font-semibold text-gray-500 mt-20 mb-5">Một số bài viết liên quan</h1>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-7">
-        <div class="bg-white shadow-md rounded-lg mb-14 overflow-hidden">
-            <img class="w-full h-[180px] object-cover" src="https://source.unsplash.com/random" alt="">
-            <div class="flex flex-col h-[120px] px-2.5 pb-3">
-                <div class="py-2 font-semibold text-gray-800 h-[60px] overflow-hidden">{{ $post->title }}</div>
-                <div class="flex 2xl:pr-1 mt-auto items-center">
-                    <div class="text-[12px] text-white px-3 py-0.5 rounded-full bg-[#292c45]">
-                        {{ $post->author->name ?? "unknow" }}
-                    </div>
-                    <div class="flex flex-1 justify-end">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-7">
+        @foreach ($relatedPosts as $relatedPost)
+            <a  href="{{ route('client.post.detail', ['post' => $relatedPost->id]) }}" class="mb-10 bg-white rounded-lg overflow-hidden shadow-md">
+                <img class="w-full h-[210px] object-cover" src="{{ $relatedPost->image }}" alt="Image">
+                <div class="flex flex-col h-[130px] px-2.5 pb-3 mb-2">
+                    <div class="py-2 font-medium text-gray-500 h-[60px] overflow-hidden text-lg">{{ $relatedPost->title }}</div>
+                    <div class="flex 2xl:pr-1 mt-auto items-center">
+                        <div class="text-[13px] text-white px-3 py-0.5 rounded-full bg-[#292c45] capitalize">
+                            {{ $relatedPost->author->name ?? "unknow"}}
+                        </div>
+                        <div class="flex flex-1 justify-end">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-400">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </a>
+        @endforeach
+    </div>    
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     // Tìm tất cả các phần tử có lớp "comment-reply-button" và "comment-reply-form"
     const replyButtons = document.querySelectorAll('.comment-reply-button');
@@ -179,6 +187,55 @@
 
             // Ẩn form phản hồi tương ứng với nút "Hủy"
             replyForms[index].style.display = 'none';
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.toggle-favorite').on('click', function (event) {
+            event.preventDefault();
+
+            @if (auth()->check())
+                var button = $(this);
+                var postId = button.data('post-id');
+                var isLike = button.data('is-like');
+
+                $.ajax({
+                    url: '{{ route('client.like.toggle', ['post' => ':postId']) }}'.replace(':postId', postId),
+                    type: 'POST',
+                    data: {_token: '{{ csrf_token() }}'},
+                    success: function (response) {
+                        if (response.is_like) {
+                            button.html('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>');
+                        } else {
+                            button.html('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>');
+                        }
+
+                        localStorage.setItem('post_' + postId, response.is_like);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            @else
+                var confirmLogin = confirm('Vui lòng đăng nhập để thích bài viết. Bạn có muốn chuyển đến trang đăng nhập?');
+                    if (confirmLogin) {
+                        window.location.href = '{{ route('login') }}';
+                    }
+            @endif
+        });
+
+        $('.toggle-favorite').each(function () {
+            var button = $(this);
+            var postId = button.data('post-id');
+            var isLike = localStorage.getItem('post_' + postId);
+
+            if (isLike === 'true') {
+                 button.html('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>');
+            } else {
+                button.html('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>');
+            }
         });
     });
 </script>

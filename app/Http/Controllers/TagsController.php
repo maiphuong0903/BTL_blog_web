@@ -56,4 +56,11 @@ class TagsController extends Controller
         $tag->delete();
         return back();
     }
+
+    public function getPostTag($tagId){
+        $tag = Tag::find($tagId);  
+        $posts = $tag->posts;
+        return response()->json(['posts' => $posts, 'tag' => $tag]);
+    }
+    
 }

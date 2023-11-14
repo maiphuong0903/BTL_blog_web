@@ -25,6 +25,12 @@ class User extends Authenticatable
         'role'
     ];
 
+    public function like()
+    {
+        return $this->belongsToMany(Like::class);
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
