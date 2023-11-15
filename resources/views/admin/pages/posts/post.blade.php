@@ -22,7 +22,7 @@
                 
                 <ul>
                     @foreach ($posts as $key => $post)
-                    <tr class="hover:bg-yellow-100">
+                    <tr class="hover:bg-yellow-100" id="post_{{ $post->id }}">
                         <td class="border border-gray-300 py-3 text-center">{{($posts->currentPage() - 1) * $posts->perPage() + $key+1}}</td>
                         <td class="border border-gray-300 px-2 py-3">
                             <a href="{{ route('admin.posts.show', $post->id) }}">
@@ -69,7 +69,7 @@
             data: {_token: '{{ csrf_token() }}'},
             success: function(response) {
                 alert('Bài viết đã được duyệt!');
-                console.log(postId);
+                $('#post_' + postId).remove(); 
             },
             error: function(err) {
                 alert('Đã xảy ra lỗi trong quá trình duyệt bài viết.');
@@ -82,7 +82,7 @@
             data: {_token: '{{ csrf_token() }}'},
             success: function(response) {
                 alert('Bài viết đã bị từ chối!');
-                console.log(postId);
+                $('#post_' + postId).remove(); 
             },
             error: function(err) {
                 alert('Đã xảy ra lỗi trong quá trình từ chối bài viết.');

@@ -85,7 +85,7 @@
         @if ($comment->avatar)
             <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="{{ $comment->avatar }}" alt="Avatar">
         @else
-        <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
+            <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
         @endif
         <div>
             <h1 class="font-medium text-lg cursor-pointer text-[#385898] capitalize mt-1.5">{{$comment->viewer->name ?? "unknow"}}</h1>

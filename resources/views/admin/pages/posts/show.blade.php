@@ -16,7 +16,7 @@
                         <h1 class="text-[18px]">Tên bài viết</h1>
                       </div>
                       <div class="md:w-2/3">
-                        <p>{{ $post->title }}</p>
+                        <p>{{ $posts->title }}</p>
                       </div>
                     </div>
                     <div class="md:flex md:items-center mb-6">
@@ -24,7 +24,7 @@
                         <h1 class="text-[18px]">Tác giả</h1>
                       </div>
                       <div class="md:w-2/3">
-                        <p>{{ $post->author->name }}</p>
+                        <p>{{ $posts->author->name }}</p>
                       </div>
                     </div>
                     <div class="md:flex md:items-center mb-6">
@@ -32,7 +32,7 @@
                           <h1 class="text-[18px]">Hình ảnh</h1>
                         </div>
                         <div class="md:w-2/3">
-                            <img class="w-[100px] h-[100px] object-cover" src="{{ $post->image }}" alt="Image">
+                            <img class="w-[100px] h-[100px] object-cover" src="{{ $posts->image }}" alt="Image">
                         </div>
                     </div>
                 </form>
@@ -44,7 +44,7 @@
                         <h1 class="text-[18px]">Ngày tạo</h1>
                       </div>
                       <div class="md:w-2/3">
-                        <p>{{ $post->created_at }}</p>
+                        <p>{{ $posts->created_at }}</p>
                       </div>
                     </div>
                     <div class="md:flex md:items-center mb-6">
@@ -52,7 +52,7 @@
                         <h1 class="text-[18px]">Ngày sửa</h1>
                       </div>
                       <div class="md:w-2/3">
-                        <p>{{ $post->updated_at }}</p>
+                        <p>{{ $posts->updated_at }}</p>
                       </div>
                     </div>
                     <div class="md:flex md:items-center mb-6">
@@ -61,11 +61,11 @@
                         </div>
                         <div class="md:w-2/3">
                           <p>
-                            @if($post->status == 0)
+                            @if($posts->status == 0)
                             <p>Chờ duyệt</p>
-                            @elseif($post->status == 1)
+                            @elseif($posts->status == 1)
                                 <p>Đã duyệt</p>
-                            @elseif($post->status == 2)
+                            @elseif($posts->status == 2)
                                 <p>Từ chối duyệt</p>
                             @endif
                         </p>
@@ -76,7 +76,7 @@
         </div>
         <div class="ml-10">
             <h1 class="text-[18px]">Mô tả</h1>
-            <p>{!! $post->content !!}</p>
+            <p>{!! $posts->content !!}</p>
         </div>
     </div>  
 </div>

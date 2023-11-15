@@ -54,26 +54,21 @@
       </div>
 
    </div>
-   <div class="grid grid-cols-2">
-      <div class="">
-         <h1>Hình ảnh</h1>
-      </div>
-      <div class="mt-10 px-7 py-5 bg-white shadow-lg">
-         <h1 class="text-xl mb-5 font-medium text-gray-500">List 10 bài viết được yêu thích nhiều nhất trong tháng</h1>
-         @foreach ($posts as $post)
-             <div class="flex gap-5 items-center py-2">
-                 <img class="h-[80px] w-[150px] object-cover rounded-md" src="{{$post->image}}" alt="">
-                 <div>
-                     <h1 class="text-[18px]">{{$post->title}}</h1>
-                     <div class="flex gap-4 text-gray-400">
-                         <p>{{ $post->likes_count }} Yêu thích</p>
-                         <p class="text-md">{{ $post->comments_count }} Comment</p>
-                     </div>
-                 </div>
-             </div>
-         @endforeach
-     </div>
-   </div>
+   <div class="mt-10 px-7 py-5 bg-white shadow-lg">
+      <h1 class="text-xl mb-7 font-medium text-gray-500">List 10 bài viết được yêu thích nhiều nhất trong tháng</h1>
+      @foreach ($posts as $post)
+          <div class="flex gap-5 items-center py-2">
+              <img class="h-[80px] w-[150px] object-cover rounded-md" src="{{$post->image}}" alt="">
+              <div>
+                  <h1 class="text-[18px]">{{$post->title}}</h1>
+                  <div class="flex gap-4 text-gray-400">
+                      <p>{{ $post->likes_count }} Yêu thích</p>
+                      <p class="text-md">{{ $post->comments_count }} Comment</p>
+                  </div>
+              </div>
+          </div>
+      @endforeach
+  </div>
   
 </div>
 @stop

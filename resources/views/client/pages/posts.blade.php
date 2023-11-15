@@ -26,9 +26,6 @@
                     </li>
                 @endforeach
             </ul>
-            <div class="absolute left-6 bottom-7">
-                <button class="text-[#92d3f9] text-[18px]">Xem thêm</button>
-            </div>
         </div>
     </div>
         {{-- phân trang --}}
@@ -47,10 +44,9 @@
             type: 'GET',
             url: '{{ route('client.posts.getPostTag', ['tagId' => ':tagId']) }}'.replace(':tagId', tagId),
             success: function (data) {
-                var postHtml = ''; // Declare postHtml outside the loop
+                var postHtml = ''; 
 
                 $.each(data.posts, function (key, post) {
-                    // Build HTML dynamically for each post
                     postHtml += `<a href="{{ route('client.post.detail', ['post' => ':postId']) }}'.replace(':postId', post.id)" class="mb-10 bg-white rounded-lg overflow-hidden shadow-md">
                                 <img class="w-full h-[210px] object-cover" src="${post.image}" alt="Image">
                                 <div class="flex flex-col h-[130px] px-2.5 pb-3">

@@ -13,9 +13,18 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::join('users','posts.created_by','=','users.id')
-                ->where('role', 1)
-                ->paginate(8);
+        $posts = Post::select([
+                'posts.id as id',
+                'posts.title',
+                'users.name',
+                'posts.created_at',
+                'posts.updated_at',
+                'posts.image',
+                'posts.content'
+            ])
+            ->join('users','posts.created_by','=','users.id')
+            ->where('users.role', 1)
+            ->paginate(8);
 
         return view('admin.pages.posts.index', compact('posts'));
     }
@@ -34,16 +43,16 @@ class PostController extends Controller
         $relatedPosts = Post::whereHas('tutorial', function ($query) use ($post) {
             $query->where('tutorial_id', $post->tutorial_id);
         })
-        ->where('id', '!=', $post_id) 
-        ->limit(3)
-        ->get();
+                ->where('id', '!=', $post_id) 
+                ->limit(4)
+                ->get();
     
         return view('client.pages.detail', compact('post','tags','comments','relatedPosts'));
     }
 
     public function getPosts()
     {
-        $posts = Post::paginate(12); 
+        $posts = Post::where('status', 1)->paginate(12); 
         $tags = Tag::take(10)->get();
         return view('client.pages.posts', compact('posts', 'tags'));
     }
@@ -199,7 +208,7 @@ class PostController extends Controller
 
     //show thông tin bài viết
     public function show($id){
-        $post = Post::find($id);
-        return view('admin.pages.posts.show',compact('post'));
+        $posts = Post::find($id);        
+        return view('admin.pages.posts.show',compact('posts'));
     }
 }

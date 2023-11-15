@@ -6,7 +6,7 @@
 @section('content')
 <div class="bg-white shadow-md rounded-md px-7 pt-3 relative min-h-[calc(100vh-145px)] pb-14">
     <h1 class="text-[25px] text-center mt-3 mb-5 font-medium">Danh Sách Bài Viết</h1>
-    <table class="w-full">
+    <table class="w-full mb-7">
         <thead>
             <tr class="bg-[#f3f2f7] text-left text-gray-600 text-[15px]">
                 <th class="border border-gray-300 py-3 text-center">STT</th>
@@ -27,7 +27,7 @@
                         </a>
                     </td>
                     <td class="border border-gray-300 px-2">{{ $post->title }}</td>
-                    <td class="border border-gray-300 px-2">{{ $post->author->name ?? "unknow"}}</td>
+                    <td class="border border-gray-300 px-2">{{ $post->name ?? "unknow"}}</td>
                     <td class="border border-gray-300 px-2">{{ $post->created_at }}</td>
                     <td class="border border-gray-300 px-2">
                         <div class="flex gap-2 justify-center items-center">

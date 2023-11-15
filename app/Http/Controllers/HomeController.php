@@ -25,6 +25,7 @@ class HomeController extends Controller
         return view('client.pages.home', compact('posts'));
     }
 
+    //tìm kiếm
     public function search(Request $request)
     {
         $keyWord = $request->get('search_term');
@@ -39,6 +40,7 @@ class HomeController extends Controller
         return view('client.pages.search', compact(['posts', 'keyWord']));
     }
 
+    //lấy ra danh sách danh mục
     public function getByTutorial(int $tutorial_id)
     {
         $tutorial = Tutorial::find($tutorial_id);
@@ -274,7 +276,7 @@ class HomeController extends Controller
 
         $post->update(['status' => 0]);
     }
-    
+
     //xóa bài
     public function post_destroy($id){
         $post = Post::find($id);

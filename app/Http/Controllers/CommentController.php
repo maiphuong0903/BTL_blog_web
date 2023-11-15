@@ -15,7 +15,7 @@ class CommentController extends Controller
                 'comment' => $request->get('comment'),
                 'post_id' => $post_id,
                 'reply_comment' =>  $request->get('reply_comment') ?? null,
-                'created_by' => Auth::user()->id
+                'created_by' => Auth::user()->id,
             ]);
             $comment->save();
             return redirect()->route('client.post.detail', $post_id);

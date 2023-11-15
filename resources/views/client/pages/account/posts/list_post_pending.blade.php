@@ -11,8 +11,8 @@
         <thead>
             <tr class="bg-[#f3f2f7] text-left text-gray-600 text-[15px]">
                 <th class="border border-gray-300 py-3 text-center">STT</th>
-                <th class="border border-gray-300 px-2">TÊN BÀI VIẾT</th>
                 <th class="border border-gray-300 px-2">HÌNH ẢNH</th>
+                <th class="border border-gray-300 px-2">TÊN BÀI VIẾT</th>
                 <th class="border border-gray-300 px-2">NGƯỜI VIẾT</th>
                 <th class="border border-gray-300 px-2">NGÀY TẠO</th>
                 <th class="border border-gray-300 px-2 text-center w-[150px]">TRẠNG THÁI</th>
@@ -23,10 +23,12 @@
                 @foreach($posts as $key => $post)
                 <tr class="hover:bg-yellow-100">
                     <td class="border border-gray-300 py-3 text-center">{{($posts->currentPage() - 1) * $posts->perPage() + $key+1}}</td>
-                    <td class="border border-gray-300 px-2 post-title"><a href="{{ route('client.posts.show', $post->id) }}">{{ $post->title }}</a></td>
                     <td class="border border-gray-300 px-2 py-3">
-                        <img class="w-[80px] h-[80px] object-cover mx-auto" src="{{ $post->image }}" alt="Image">
+                        <a href="{{ route('client.posts.show', $post->id) }}">
+                            <img class="w-[100px] h-[100px] object-cover mx-auto" src="{{ $post->image }}" alt="Image">
+                        </a>
                     </td>
+                    <td class="border border-gray-300 px-2 post-title">{{ $post->title }}</td>
                     <td class="border border-gray-300 px-2">{{ $post->author->name ?? "unknow"}}</td>
                     <td class="border border-gray-300 px-2">{{ $post->created_at }}</td>
                     <td class="border border-gray-300 px-2 text-center">
