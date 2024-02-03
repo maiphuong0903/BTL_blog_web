@@ -73,10 +73,7 @@
                     type: 'POST',
                     data: {_token: '{{ csrf_token() }}'},
                     success: function (response) {
-                        if (response.is_like) {
-                            $('#post_' + postId).remove();
-                        } else {
-                        }
+                        location.reload()
                     },
                     error: function (error) {
                         console.log(error);

@@ -51,6 +51,9 @@
         <div class="mt-6">
             <strong class="mb-2">Nội dung:</strong>
             <textarea name="content" id="editor"></textarea>
+            @error('content')
+                    <span class=" text-red-500 pt-3">{{ $message }}</span>
+                @enderror 
         </div>
         
         <div class="float-right">

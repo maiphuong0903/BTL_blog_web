@@ -18,12 +18,9 @@
             </ul>
         </div>
         <div class="mb-3">
-            <h1 class="text-2xl font-semibold pb-4">Thành viên nhóm</h1>
+            <h1 class="text-2xl font-semibold pb-4">Người tạo trang web</h1>
             <ul class="leading-9 md:leading-7 md:list-disc md:pl-4 font-extralight">
                 <li>Mai Thị Phượng</li>
-                <li>Đào Minh Anh</li>
-                <li>Trần Nhữ Bình</li>
-                <li>Trần Thế Nhân</li>
             </ul>
         </div>
    </div>

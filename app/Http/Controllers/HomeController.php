@@ -18,12 +18,33 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $userId = null;
+        if (Auth::check()) {
+            $userId = Auth::user()->id;
+        }
+
         $posts = Post::where('status', 1)
-                ->orderBy('created_at', 'desc') 
-                ->take(8) 
-                ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+
+        foreach ($posts as $post) {
+            $post->is_liked = false;
+
+            if ($userId) {
+                $like = Like::where([
+                    'post_id' => $post->id,
+                    'created_by' => $userId,
+                ])->first();
+
+                if ($like) {
+                    $post->is_liked = true;
+                }
+            }
+        }
         return view('client.pages.home', compact('posts'));
     }
+
 
     //tìm kiếm
     public function search(Request $request)

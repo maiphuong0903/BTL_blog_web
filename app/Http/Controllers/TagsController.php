@@ -61,6 +61,5 @@ class TagsController extends Controller
         $tag = Tag::find($tagId);  
         $posts = $tag->posts;
         return response()->json(['posts' => $posts, 'tag' => $tag]);
-    }
-    
+    } 
 }

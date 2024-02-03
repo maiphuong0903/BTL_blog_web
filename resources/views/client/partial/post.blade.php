@@ -8,8 +8,8 @@
                     {{ $post->author->name ?? "unknown"}}
                 </div>
                 <div class="flex flex-1 justify-end">
-                    <button class="toggle-favorite" data-post-id="{{ $post->id }}" data-is-like="{{ optional($post->like)->is_like ? 'true' : 'false' }}">
-                        @if (optional($post->like)->is_like)
+                    <button class="toggle-favorite" data-post-id="{{ $post->id }}" data-is-like="{{ $post->is_liked ? 'true' : 'false' }}">
+                        @if ($post->is_liked)
                             UNLIKE
                         @else
                            LIKE        

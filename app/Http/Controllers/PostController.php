@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Models\Tutorial;
 use App\Models\Comment;
+use App\Models\Like;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -40,20 +42,36 @@ class PostController extends Controller
             if($reply)  $comment->reply = $reply;
         }
         $tags = $post->tags;
-        $relatedPosts = Post::whereHas('tutorial', function ($query) use ($post) {
-            $query->where('tutorial_id', $post->tutorial_id);
-        })
-                ->where('id', '!=', $post_id) 
+        $relatedPosts = Post::where('id', '!=', $post_id) 
+                ->where('tutorial_id', $post->tutorial_id)
                 ->limit(4)
                 ->get();
-    
+        //dd($comments->toArray());
         return view('client.pages.detail', compact('post','tags','comments','relatedPosts'));
     }
 
     public function getPosts()
     {
+        $userId = null;
+        if (Auth::check()) {
+            $userId = Auth::user()->id;
+        }
         $posts = Post::where('status', 1)->paginate(12); 
         $tags = Tag::take(10)->get();
+        foreach ($posts as $post) {
+            $post->is_liked = false;
+
+            if ($userId) {
+                $like = Like::where([
+                    'post_id' => $post->id,
+                    'created_by' => $userId,
+                ])->first();
+
+                if ($like) {
+                    $post->is_liked = true;
+                }
+            }
+        }
         return view('client.pages.posts', compact('posts', 'tags'));
     }
     

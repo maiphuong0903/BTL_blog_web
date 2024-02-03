@@ -44,7 +44,7 @@
 
         <div class="mt-6">
             <strong class="mb-2">Nội dung:</strong>
-            <textarea name="content" id="editor">{{ $post->content }}</textarea>
+            <textarea name="content" id="editor">{{ $post->content }}</textarea>    
         </div>
         <div class="float-right">
             <button class="bg-blue-400 px-3 py-2 text-white mt-6 rounded-lg" type="submit">Sửa bài viết</button>

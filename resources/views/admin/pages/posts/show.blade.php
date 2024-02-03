@@ -65,7 +65,7 @@
                             <p>Chờ duyệt</p>
                             @elseif($posts->status == 1)
                                 <p>Đã duyệt</p>
-                            @elseif($posts->status == 2)
+                            @elseif($posts->status == 2)      
                                 <p>Từ chối duyệt</p>
                             @endif
                         </p>
@@ -76,7 +76,7 @@
         </div>
         <div class="ml-10">
             <h1 class="text-[18px]">Mô tả</h1>
-            <p>{!! $posts->content !!}</p>
+            {!! htmlspecialchars_decode($posts->content) !!}
         </div>
     </div>  
 </div>

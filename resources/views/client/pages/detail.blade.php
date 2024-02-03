@@ -42,15 +42,16 @@
                         </svg>           
                     @endif
                 </button>
-                <p>( {{ optional($post)->likes_count ?? 0 }} )</p>
+                <p>( {{ optional($post->likes)->count() ?? 0 }} )</p>
             </div>
         </div>
     </div>
 
     {{-- content --}}
     <div class="text-xl leading-10">
-        <p>{!! $post->content !!}</p>
+        {!! htmlspecialchars_decode($post->content) !!}
     </div>
+
 
 
     {{-- comment --}}
@@ -82,8 +83,8 @@
     {{-- show comment --}}
     @foreach ($comments as $comment)
     <div class="flex gap-5 mt-4">
-        @if ($comment->avatar)
-            <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="{{ $comment->avatar }}" alt="Avatar">
+        @if ($comment->viewer->avatar)
+            <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="{{ $comment->viewer->avatar }}" alt="Avatar">
         @else
             <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
         @endif
@@ -99,7 +100,7 @@
                     </svg>
                     <p>0</p>
                 </div>
-                <p class="text-gray-400">1 tuần</p>
+                <p class="text-gray-400">{{ $comment->created_at }}</p>
             </div>
         </div>
     </div>
@@ -107,8 +108,8 @@
     {{-- show reply --}}
     @foreach ($comment->reply as $reply)
     <div class="flex gap-5 ml-12">
-        @if ($reply->avatar)
-            <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="{{ $comment->avatar }}" alt="Avatar">
+        @if ($reply->viewer->avatar)
+            <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="{{ $comment->viewer->avatar }}" alt="Avatar">
         @else
         <img class="w-[35px] h-[35px] rounded-full object-cover cursor-pointer" src="https://thuthuatnhanh.com/wp-content/uploads/2020/09/avatar-doremon-cute-1.jpg" alt="">
         @endif
@@ -238,6 +239,7 @@
             }
         });
     });
+
 </script>
 
 
